@@ -1,0 +1,36 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+import { User } from './user';
+
+@Injectable()
+export class SignUpService {
+  url: string = "http://localhost:3000/addUser";
+  constructor(
+    private http: HttpClient) { }
+
+    addUser(newUser: User): Observable<User> {
+      console.log(JSON.stringify(newUser["currentUser"]));
+      return this.http.post<User>(this.url, newUser)
+        .pipe(
+          catchError(this.handleError)
+        );
+    }
+    private handleError(error: HttpErrorResponse) {
+      if (error.error instanceof ErrorEvent) {
+        
+        console.error('An error occurred:', error.error.message);
+      } else {
+        
+        console.error(
+          `Backend returned code ${error.status}, ` +
+          `body was: ${error.error}`);
+      }
+      
+      return throwError(
+        'Something bad happened; please try again later.');
+    }
+}

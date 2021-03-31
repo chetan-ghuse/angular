@@ -1,44 +1,42 @@
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+
   <div class="main">
   <h1><i>{{ title }}</i></h1>
-  <form [formGroup]="userSignUp" class="form">
+  <form [formGroup]="userSignUp" class="form" (ngSubmit)="validation()">
     <div class="row">
       <div class="input col-25">
-        <label  for="fname">First Name:</label>
+        <label  for="firstName">First Name:</label>
       </div>
       <div class="col-75">
-        <input type="text" id="fname" name=fname required formControlName="fname"  
-          placeholder="first name..." [class.is-invalid]="fname.invalid && fname.touched">
-        <div *ngIf="fname.errors && (fname.invalid && fname.touched)">
-          <small  class="text-danger" *ngIf="fname.errors?.required">First name  is required</small>
-          <small  class="text-danger" *ngIf="fname.errors?.minlength">First name  must have 2 characters</small>
+        <input type="text" id="firstName" name=firstName formControlName="firstName"  
+          placeholder="first name..." [class.is-invalid]="firstName.invalid && firstName.touched">
+        <div *ngIf="firstName.errors && (firstName.invalid && firstName.touched)">
+          <small  class="text-danger" *ngIf="firstName.errors?.required">First name  is required</small>
+          <small  class="text-danger" *ngIf="firstName.errors?.minlength">First name  must have 2 characters</small>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="input col-25">
-        <label  for="lname">Last Name:</label>
+        <label  for="lastName">Last Name:</label>
       </div>
       <div class="col-75">
-        <input type="text" id="lname" name=lname required formControlName="lname"  
-        placeholder="last name..." [class.is-invalid]="lname.invalid && lname.touched">
-        <div *ngIf="lname.errors && (lname.invalid && lname.touched)">
-          <small  class="text-danger" *ngIf="lname.errors?.required">Last name  is required</small>
-          <small  class="text-danger" *ngIf="lname.errors?.minlength">Last name  must have 2 characters</small>
+        <input type="text" id="lastName" name=lastName formControlName="lastName"  
+        placeholder="last name..." [class.is-invalid]="lastName.invalid && lastName.touched">
+        <div *ngIf="lastName.errors && (lastName.invalid && lastName.touched)">
+          <small  class="text-danger" *ngIf="lastName.errors?.required">Last name  is required</small>
+          <small  class="text-danger" *ngIf="lastName.errors?.minlength">Last name  must have 2 characters</small>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="input col-25">
-        <label  for="email">Email:</label>
+        <label  for="emailId">email-Id:</label>
       </div>
       <div class="col-75">
-        <input type="email" id="email" name=email required formControlName="email"  
-        placeholder="email..." [class.is-invalid]="email.invalid && email.touched">
-        <div *ngIf="email.errors && (email.invalid && email.touched)">
-          <small  class="text-danger" *ngIf="email.errors?.required">Email  is required</small>
+        <input type="emailId" id="emailId" name=emailId  formControlName="emailId"  
+        placeholder="email..." [class.is-invalid]="emailId.invalid && emailId.touched">
+        <div *ngIf="emailId.errors && (emailId.invalid && emailId.touched)">
+          <small  class="text-danger" *ngIf="emailId.errors?.required">Email is required</small>
         </div>
       </div>
     </div>
@@ -47,7 +45,7 @@
         <label  for="password">Password:</label>
       </div>
       <div class="col-75">
-        <input type="password" id="password" name=password required formControlName="password"  
+        <input type="password" id="password" name=password formControlName="password"  
         placeholder="password..." [class.is-invalid]="password.invalid && password.touched">
         <div *ngIf="password.errors && (password.invalid && password.touched)">
           <small  class="text-danger" *ngIf="password.errors?.required">Password is required</small>
@@ -56,9 +54,10 @@
     </div>
     <div class="row">
       <div class="input">
-      <a routerLink="/login"> <button id="signup" type="submit" [disabled]="userSignUp.invalid">Sign Up</button></a>
+      <button id="signup" type="submit" [disabled]="userSignUp.invalid">Sign Up</button>
       </div>
     </div>
   </form>
   {{ userSignUp.value | json }}
+  
   </div>

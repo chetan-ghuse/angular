@@ -1,1 +1,35 @@
-<p>login works!</p>
+
+<div class="main">
+  <h1><i>{{ title }}</i></h1>
+  <form [formGroup]="loginForm" class="form">
+    <div class="row">
+      <div class="input col-25">
+        <label  for="emailId">email-Id:</label>
+      </div>
+      <div class="col-75">
+        <input type="emailId" id="emailId" name=emailId formControlName="emailId"  
+        placeholder="email..." [class.is-invalid]="emailId.invalid && emailId.touched">
+        <div *ngIf="emailId.errors && (emailId.invalid && emailId.touched)">
+          <small  class="text-danger" *ngIf="emailId.errors?.required">Email is required</small>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input col-25">
+        <label  for="password">Password:</label>
+      </div>
+      <div class="col-75">
+        <input type="password" id="password" name=password formControlName="password"  
+        placeholder="password..." [class.is-invalid]="password.invalid && password.touched">
+        <div *ngIf="password.errors && (password.invalid && password.touched)">
+          <small  class="text-danger" *ngIf="password.errors?.required">Password is required</small>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input">
+      <button id="signup" type="submit" [disabled]="loginForm.invalid">Log in</button>
+      </div>
+    </div>
+  </form>
+</div>
