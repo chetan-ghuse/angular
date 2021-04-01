@@ -37,6 +37,7 @@
         placeholder="email..." [class.is-invalid]="emailId.invalid && emailId.touched">
         <div *ngIf="emailId.errors && (emailId.invalid && emailId.touched)">
           <small  class="text-danger" *ngIf="emailId.errors?.required">Email is required</small>
+          <small  class="text-danger" *ngIf="emailId.errors?.pattern">Invalid email</small>
         </div>
       </div>
     </div>

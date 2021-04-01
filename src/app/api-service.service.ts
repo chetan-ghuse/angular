@@ -1,24 +1,42 @@
+
 import { Injectable } from '@angular/core';
+
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { User } from './user';
+import{ loginUser } from './loginUser';
 
-@Injectable()
-export class SignUpService {
-  url: string = "http://localhost:3000/addUser";
+@Injectable({
+  providedIn: 'root'
+})
+export class ApiServiceService {
+
+  singUpUrl: string = "http://localhost:3000/addUser";
+  loginUrl: string = "http://localhost:3000/login";
+  currUser!: string;
   constructor(
     private http: HttpClient) { }
 
     addUser(newUser: any): Observable<User> {
       console.log(newUser["currentUser"]);
-      return this.http.post<User>(this.url, newUser["currentUser"])
+      this.currUser = newUser["currentUser"]["firstName"];
+      return this.http.post<User>(this.singUpUrl, newUser["currentUser"])
         .pipe(
           catchError(this.handleError)
         );
     }
+
+    loggedIn(req : any): Observable<loginUser> {
+      
+      return this.http.post<loginUser>(this.loginUrl,req["currentUser"])
+                      .pipe(
+                        catchError(this.handleError)
+                      );
+    }
+
     private handleError(error: HttpErrorResponse) {
       if (error.error instanceof ErrorEvent) {
         
@@ -33,4 +51,6 @@ export class SignUpService {
       return throwError(
         'Something bad happened; please try again later.');
     }
+
+    
 }

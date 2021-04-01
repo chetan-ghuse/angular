@@ -1,7 +1,7 @@
 
 <div class="main">
-  <h1><i>{{ title }}</i></h1>
-  <form [formGroup]="loginForm" class="form">
+  <h1><i>{{ title }} {{ currentUser }}</i></h1>
+  <form [formGroup]="loginForm" class="form" (ngSubmit)="onLogin()">
     <div class="row">
       <div class="input col-25">
         <label  for="emailId">email-Id:</label>
@@ -11,6 +11,7 @@
         placeholder="email..." [class.is-invalid]="emailId.invalid && emailId.touched">
         <div *ngIf="emailId.errors && (emailId.invalid && emailId.touched)">
           <small  class="text-danger" *ngIf="emailId.errors?.required">Email is required</small>
+          <small  class="text-danger" *ngIf="emailId.errors?.pattern">Email is required</small>
         </div>
       </div>
     </div>
@@ -32,4 +33,5 @@
       </div>
     </div>
   </form>
+  {{ loginForm.value | json}}
 </div>
