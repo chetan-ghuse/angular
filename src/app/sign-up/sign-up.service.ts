@@ -12,9 +12,9 @@ export class SignUpService {
   constructor(
     private http: HttpClient) { }
 
-    addUser(newUser: User): Observable<User> {
-      console.log(JSON.stringify(newUser["currentUser"]));
-      return this.http.post<User>(this.url, newUser)
+    addUser(newUser: any): Observable<User> {
+      console.log(newUser["currentUser"]);
+      return this.http.post<User>(this.url, newUser["currentUser"])
         .pipe(
           catchError(this.handleError)
         );
