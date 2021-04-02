@@ -20,6 +20,7 @@ import { ApiServiceService } from './../api-service.service';
 export class SignUpComponent implements OnInit {
   title = "Join Now!";
   emailRegex =  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ;
+  passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
   private readonly notifier: NotifierService ;
   
 
@@ -31,7 +32,7 @@ export class SignUpComponent implements OnInit {
     firstName: ['', [Validators.required, Validators.minLength(2)]],
     lastName: ['', [Validators.required, Validators.minLength(2)]],
     emailId: ['', [Validators.required, Validators.pattern(this.emailRegex)]],
-    password: ['', Validators.required]
+    password: ['', [Validators.required, Validators.pattern(this.passwordRegex), Validators.minLength(7)]]
   });
 
   get firstName() {
@@ -48,7 +49,7 @@ export class SignUpComponent implements OnInit {
   }
   ngOnInit(): void {
   }
-  validation() {
+  /*validation() {
     
     let currentPassword = this.userSignUp.value.password;
     currentPassword = currentPassword.trim();
@@ -59,7 +60,7 @@ export class SignUpComponent implements OnInit {
         //alert("Password must have atleast one Capital letter, one small letter, one digit, one special character and must have a length of 7 characters");
         this.notifier.notify('error', 'Invalid password')
       }
-  }
+  }*/
 
   addCurrentUser() {
       const currentUser = this.userSignUp.value;

@@ -1,7 +1,7 @@
 
   <div class="main">
   <h1><i>{{ title }}</i></h1>
-  <form [formGroup]="userSignUp" class="form" (ngSubmit)="validation()">
+  <form [formGroup]="userSignUp" class="form" (ngSubmit)="addCurrentUser()">
     <div class="row">
       <div class="input col-25">
         <label  for="firstName">First Name:</label>
@@ -28,6 +28,7 @@
         </div>
       </div>
     </div>
+    
     <div class="row">
       <div class="input col-25">
         <label  for="emailId">email-Id:</label>
@@ -41,6 +42,7 @@
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="input col-25">
         <label  for="password">Password:</label>
@@ -50,9 +52,20 @@
         placeholder="password..." [class.is-invalid]="password.invalid && password.touched">
         <div *ngIf="password.errors && (password.invalid && password.touched)">
           <small  class="text-danger" *ngIf="password.errors?.required">Password is required</small>
+          <small  class="text-danger" *ngIf="password.errors?.pattern">
+            <ul>
+              <li>Password must have:</li>
+              <li>atleast one Capital alphabet</li>
+              <li>atleast one  Small alphabet</li>
+              <li>atleast one digit</li>
+              <li>atleast one special symbol</li>
+            </ul>
+          </small>
+          <small  class="text-danger" *ngIf="password.errors?.minlength">Password must have length of 7</small>
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="input">
       <button id="signup" type="submit" [disabled]="userSignUp.invalid">Sign Up</button>

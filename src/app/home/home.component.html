@@ -2,6 +2,20 @@
 <app-nav-bar></app-nav-bar>
 <div class="main">
   <div class="blog">
-    <button type="button">Add Blogs</button>
+    <button (click)="navigate()" type="button">Add Blogs</button>
+  </div>
+  <div class="table">
+    <h1>{{ currentUser }} Your Blogs :  </h1>
+    <table>
+      <tbody id="tableBody">
+        <tr *ngFor="let record of currUserBlog">
+          <td>{{ record.id }}</td>
+          <td>{{ record.title }}</td>
+          <td>{{ record.description }}</td>
+          <td>{{ record.content }}</td>
+          <td>{{ record.createdAt }}</td>
+        </tr>
+      </tbody>
+  </table>
   </div>
 </div>

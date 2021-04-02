@@ -10,6 +10,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ApiServiceService } from './api-service.service';
 
 
+
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -57,9 +58,7 @@ const customNotifierOptions: NotifierOptions = {
   declarations: [
     AppComponent,
     ...routingComponents,
-    NavBarComponent,
-    
-    
+    NavBarComponent,  
   ],
   imports: [
     BrowserModule,
