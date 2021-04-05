@@ -11,16 +11,17 @@ import { ApiServiceService } from './api-service.service';
 
 
 
+
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
-      position: 'left',
+      position: 'middle',
       distance: 12,
     },
     
     vertical: {
-      position: 'bottom',
-      distance: 12,
+      position: 'top',
+      distance: 50,
       gap: 10,
     },
   },
@@ -58,7 +59,7 @@ const customNotifierOptions: NotifierOptions = {
   declarations: [
     AppComponent,
     ...routingComponents,
-    NavBarComponent,  
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,

@@ -42,11 +42,11 @@ export class AddBlogComponent implements OnInit {
   addBlog() {
     const details = this.blogForm.value;
     console.log(details);
-
+    //const authMsg = JSON.parse(localStorage.getItem('authKey')!);
     this.apiService.createBlog(details)
                   .subscribe(data => {
                     console.log("POST Request is successful ", data);
-                    this.apiService.getBlog(this.apiService.authMsg)
+                    /*this.apiService.getBlog()
                     .subscribe(bdata => {
                       
                       this.userBlog = bdata["response"];
@@ -55,7 +55,7 @@ export class AddBlogComponent implements OnInit {
                     },
                     error => {
                       console.log("Error",error);
-                    });
+                    });*/
                     
                     this.router.navigateByUrl('/home');
                     this.notifier.notify('success','Blog added successfully');

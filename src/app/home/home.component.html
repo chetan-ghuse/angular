@@ -8,12 +8,14 @@
     <h1>{{ currentUser }} Your Blogs :  </h1>
     <table>
       <tbody id="tableBody">
-        <tr *ngFor="let record of currUserBlog">
-          <td>{{ record.id }}</td>
+        <tr *ngFor="let record of currUserBlog; let i=index">
+          <td>{{ i+1 }}</td> 
           <td>{{ record.title }}</td>
           <td>{{ record.description }}</td>
           <td>{{ record.content }}</td>
           <td>{{ record.createdAt }}</td>
+          <td><button class="edit-btn"type="button">Edit</button></td>
+          <td (click)="deleteBlog(record.id)"><button class="del-btn"type="button">Delete</button></td>
         </tr>
       </tbody>
   </table>

@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   title = "Welcome!";
   emailRegex =  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ;
   passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-  userBlog: Array<any> = [];
+  //userBlog: Array<any> = [];
   private readonly notifier: NotifierService ;
   currentUser = this.apiService.currUser;
 
@@ -54,15 +54,9 @@ export class LoginComponent implements OnInit {
                     .subscribe(data => {
                       const obj:any = data;
                       //console.log("login successfull", obj['msg']);
-                      this.apiService.getBlog(obj['msg'])
-                      .subscribe(bdata => {
-                        //console.log("get block successfully", bdata["response"]);
-                        this.userBlog = bdata["response"];
-                        localStorage.setItem('userBlog', JSON.stringify(this.userBlog));
-                      },
-                      error => {
-                        console.log("Error",error);
-                      });
+                      //this.apiService.authMsg = obj['msg'];
+                      localStorage.setItem('authKey',JSON.stringify(obj['msg']));
+                      
                       this.notifier.notify('success','Logged in Successfully!');
                       this.router.navigateByUrl('/home');
                     },

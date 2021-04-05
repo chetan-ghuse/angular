@@ -1,3 +1,4 @@
+import { UsersBlogComponent } from './users-blog/users-blog.component';
 import { AddBlogComponent } from './add-blog/add-blog.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path:'login', component: LoginComponent },
   { path:'home', component: HomeComponent },
   { path:'addBlog', component: AddBlogComponent },
+  { path:'usersBlog', component: UsersBlogComponent },
   { path: '**', redirectTo:'/addUser' }
 ];
 
@@ -20,4 +22,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const routingComponents = [SignUpComponent, LoginComponent, HomeComponent, 
-                                  AddBlogComponent];
+                                  AddBlogComponent, UsersBlogComponent];

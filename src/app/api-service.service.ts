@@ -8,14 +8,7 @@ import { catchError } from 'rxjs/operators';
 
 import { User } from './user';
 import{ loginUser } from './loginUser';
-
-/*const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json'
-  })
-};
-*/
-
+import { blogId } from './blogId';
 
 @Injectable({
   providedIn: 'root'
@@ -26,14 +19,17 @@ export class ApiServiceService {
   loginUrl: string = "http://localhost:3000/login";
   blogUrl: string = "http://localhost:3000/userBlog";
   addBlogurl: string = "http://localhost:3000/addBlog";
+  deleteBlogUrl: string = "http://localhost:3000/deleteBlog";
+  usersBlogUrl: string = "http://localhost:3000/usersBlog";
   currUser!: string;
-  authMsg!: string;
+
   constructor(
     private http: HttpClient) { }
 
     addUser(newUser: any): Observable<User> {
       console.log(newUser["currentUser"]);
       this.currUser = newUser["currentUser"]["firstName"];
+      
       return this.http.post<User>(this.singUpUrl, newUser["currentUser"])
         .pipe(
           catchError(this.handleError)
@@ -41,18 +37,18 @@ export class ApiServiceService {
     }
 
     loggedIn(req : any): Observable<loginUser> {
-      
+    
       return this.http.post<loginUser>(this.loginUrl,req["currentUser"])
                       .pipe(
                         catchError(this.handleError)
                       );
     }
 
-    getBlog(msg: string): Observable<any> {
-      this.authMsg = msg;
+    getBlog(): Observable<any> {
+      const authMsg = JSON.parse(localStorage.getItem('authKey')!);
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': msg });
+        'Authorization': authMsg });
         let options = { headers: headers };
         return this.http.post<any>(this.blogUrl,null,options)
                         .pipe(
@@ -61,15 +57,45 @@ export class ApiServiceService {
     }
     
     createBlog(details: any): Observable<any> {
+      const authMsg = JSON.parse(localStorage.getItem('authKey')!);
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': this.authMsg });
+        'Authorization': authMsg });
         let options = {headers: headers};
         return this.http.post<any>(this.addBlogurl,details,options)
                         .pipe(
                           catchError(this.handleError)
                         );
     }
+
+    removeBlog(blogId:blogId): Observable<any> {
+      const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authMsg
+      });
+      let obj: object;
+      
+      let options = {headers:headers,body: blogId};
+      return this.http.delete<any>(this.deleteBlogUrl,options)
+                      .pipe(
+                        catchError(this.handleError)
+                      );
+                    
+    }
+
+    allUsersBlog(): Observable<any> {
+      const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authMsg });
+        let options = { headers: headers };
+        return this.http.post<any>(this.usersBlogUrl,null,options)
+                        .pipe(
+                          catchError(this.handleError)
+                        );
+    }
+
     private handleError(error: HttpErrorResponse) {
       if (error.error instanceof ErrorEvent) {
         
