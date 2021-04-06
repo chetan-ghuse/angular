@@ -15,18 +15,6 @@ export class AddBlogComponent implements OnInit {
   private readonly notifier: NotifierService ;
   userBlog: Array<any> = [];
 
-  constructor(private fb: FormBuilder, private apiService: ApiServiceService,
-    notifierService: NotifierService, private router: Router) { 
-    this.notifier = notifierService;
-  }
-
-  blogForm = this.fb.group({
-    title: ['', [Validators.required, Validators.minLength(2)]],
-    description: ['', [Validators.required, Validators.minLength(2)]],
-    content: ['',[Validators.required, Validators.minLength(2)]],
-    visible: ['']
-  });
-
   get title() {
     return this.blogForm.get('title')!;
   }
@@ -37,34 +25,30 @@ export class AddBlogComponent implements OnInit {
     return this.blogForm.get('content')!;
   }
 
+  constructor(private fb: FormBuilder,
+             private apiService: ApiServiceService,
+              notifierService: NotifierService,
+             private router: Router) { 
+              this.notifier = notifierService;
+            }
+
+  blogForm = this.fb.group({
+    title: ['', [Validators.required, Validators.minLength(2)]],
+    description: ['', [Validators.required, Validators.minLength(2)]],
+    content: ['',[Validators.required, Validators.minLength(2)]],
+    visible: ['']
+  });
+
+  
+
   ngOnInit(): void {
   }
   addBlog() {
     const details = this.blogForm.value;
     console.log(details);
-    //const authMsg = JSON.parse(localStorage.getItem('authKey')!);
-    this.apiService.createBlog(details)
-                  .subscribe(data => {
-                    console.log("POST Request is successful ", data);
-                    /*this.apiService.getBlog()
-                    .subscribe(bdata => {
-                      
-                      this.userBlog = bdata["response"];
-                      console.log()
-                      localStorage.setItem('userBlog', JSON.stringify(this.userBlog));
-                    },
-                    error => {
-                      console.log("Error",error);
-                    });*/
-                    
-                    this.router.navigateByUrl('/home');
-                    this.notifier.notify('success','Blog added successfully');
-                  },
-                  error => {
-                    console.log("Error", error);
-                    this.notifier.notify('error','Sorry blog is not added');
-                  });
-
-    
+    this.apiService.createBlog(details).subscribe(() => {
+      this.router.navigateByUrl('/home');
+      this.notifier.notify('success','Blog added successfully');
+    }, () => this.notifier.notify('error','Sorry blog is not added')); 
   }
 }

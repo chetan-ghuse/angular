@@ -1,10 +1,15 @@
 
 .blog {
-  float: right;
-  margin: 25px 50px;
-  
+ width: 100%;
+ margin: 15px;
+}
+h1 {
+  display: inline;
 }
 .blog button {
+  float: right;
+  margin-right: 10%;
+  margin-top: 1%;
   background-color: orange;
 }
 .table {
@@ -14,13 +19,11 @@
   
 }
 table {
-  //border: 1px solid #dddcdc;
   background-color: white;
   border-collapse: collapse;
   width: 100%;
 }
 td {
-  //border-bottom: 2px solid #5350f8;
   text-align: center;
   padding: 8px;
 }
@@ -43,3 +46,4 @@ tr:hover {
   padding:5px 15px;
   box-shadow: 1px 1px 5px #9c1005;
 }
+

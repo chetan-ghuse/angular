@@ -1,12 +1,12 @@
-.main {
-   
-    background-color: #ffffff;
-    width: 50%;
-    margin: 7% auto;
-    border-radius: 15px;
-    padding:10px;
-    box-shadow: 1px 1px 5px #979797;
-    text-align: center;
+:host {
+  background-color: #ffffff;
+  width: 50%;
+  margin: 7% auto;
+  border-radius: 15px;
+  padding:10px;
+  box-shadow: 1px 1px 5px #979797;
+  text-align: center;
+  display: block;
 }
 #add {
   color: #0c0b0b;
@@ -21,4 +21,18 @@
   padding-top: 2%;
   padding-left: 7%;
   width:10%;
+}
+@media only screen and (max-width:600px) {
+  :host {
+    width: 100%;
+  }
+  .col-25 {
+    text-align: left;
+    font-size: 10px;
+  }
+  .col-75 {
+    text-align: center;
+    font-size: 10px;
+  }
+  
 }

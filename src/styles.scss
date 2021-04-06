@@ -98,6 +98,7 @@ td:before {
   padding-right: 10px; 
   white-space: nowrap;
 }
+
 //td:nth-of-type(1):before {content :"Task name:";}
 //td:nth-of-type(2):before {content :"Total Hour:";}
 //td:nth-of-type(3):before {content: "User:";}
@@ -112,4 +113,7 @@ td:before {
 }
 .d-none {
   display: none;
+}
+input:focus {
+  background-color: #d6dbdb;
 }

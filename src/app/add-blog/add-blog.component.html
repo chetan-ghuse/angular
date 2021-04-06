@@ -1,4 +1,4 @@
-<div class="main">
+
   <h2>{{ titleBlog }}</h2>
   <form [formGroup]="blogForm" class="form" (ngSubmit)="addBlog()">
     <div class="row">
@@ -43,15 +43,6 @@
       </div>
     </div>
 
-    <!--<div class="row">
-      <div class="input col-25">
-        <label  for="visible">Visible:</label>
-      </div>
-      <div class="col-75 checkbox">
-        <input type="checkbox" id="visible" name="visible"  formControlName="visible">
-      </div>
-    </div>-->
-
     <div class="row">
       <div class="input">
       <button id="add" type="submit" [disabled]="blogForm.invalid">Add</button>
@@ -60,4 +51,3 @@
 
   </form>
   {{ blogForm.value | json}}
-</div>

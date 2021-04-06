@@ -1,4 +1,5 @@
 export interface loginUser {
-  emailId: string,
-  password: string
+  error: boolean,
+  msg: string,
+  response: null
 }

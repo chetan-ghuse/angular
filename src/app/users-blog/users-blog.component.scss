@@ -1,11 +1,6 @@
 
-.blog {
-  float: right;
-  margin: 25px 50px;
-  
-}
-.blog button {
-  background-color: orange;
+.heading {
+  text-align: left;
 }
 .table {
   padding: 10px;
@@ -14,13 +9,11 @@
   
 }
 table {
-  //border: 1px solid #dddcdc;
   background-color: white;
   border-collapse: collapse;
   width: 100%;
 }
 td {
-  //border-bottom: 2px solid #5350f8;
   text-align: center;
   padding: 8px;
 }

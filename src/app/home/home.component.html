@@ -1,11 +1,10 @@
 
 <app-nav-bar></app-nav-bar>
-<div class="main">
   <div class="blog">
+    <h1>Your Blogs :  </h1>
     <button (click)="navigate()" type="button">Add Blogs</button>
   </div>
   <div class="table">
-    <h1>{{ currentUser }} Your Blogs :  </h1>
     <table>
       <tbody id="tableBody">
         <tr *ngFor="let record of currUserBlog; let i=index">
@@ -14,10 +13,9 @@
           <td>{{ record.description }}</td>
           <td>{{ record.content }}</td>
           <td>{{ record.createdAt }}</td>
-          <td><button class="edit-btn"type="button">Edit</button></td>
           <td (click)="deleteBlog(record.id)"><button class="del-btn"type="button">Delete</button></td>
         </tr>
       </tbody>
   </table>
-  </div>
 </div>
+

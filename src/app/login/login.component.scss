@@ -1,10 +1,11 @@
-.main {
+:host {
   background-color: #ffffff;
   width: 50%;
   margin: 10% auto;
   border-radius: 15px;
   padding:10px;
-  box-shadow: 1px 1px 5px #979797
+  box-shadow: 1px 1px 5px #979797;
+  display: block;
 }
 h1 {
   font-family: Cursive;
@@ -16,4 +17,18 @@ h1 {
   border-radius: 5px;
   padding:5px 15px;
   box-shadow: 1px 1px 5px #6c6cf5;
+}
+@media only screen and (max-width:600px) {
+  :host {
+    width: 100%;
+  }
+  .col-25 {
+    text-align: left;
+    font-size: 10px;
+  }
+  .col-75 {
+    text-align: center;
+    font-size: 10px;
+  }
+  
 }

@@ -1,6 +1,5 @@
 
-<div class="main">
-  <h1><i>{{ title }} {{ currentUser }}</i></h1>
+  <h1><i>{{ title }}</i></h1>
   <form [formGroup]="loginForm" class="form" (ngSubmit)="onLogin()">
     <div class="row">
       <div class="input col-25">
@@ -50,4 +49,3 @@
     
   </form>
   {{ loginForm.value | json}}
-</div>
