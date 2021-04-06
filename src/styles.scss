@@ -1,0 +1,115 @@
+/* You can add global styles to this file, and also import other style files */
+
+//@import '~/angular-notifier/src/styles.scss';
+
+body {
+  background-color: #f5f5e7;
+}
+* {
+  box-sizing: border-box;
+}
+/*.flex-container {
+  margin:auto;
+  margin-top: 100px;
+  text-align: center;
+  background-color: #f1f7f7;
+  width: 50%;
+  border-radius: 5px;
+}*/
+.input {
+  padding: 10px;
+  text-align: center;
+  
+}
+input {
+  width: 80%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+  box-shadow: 1px 1px 5px #b6b6b6;
+}
+
+label {
+  padding: 10px 5px;
+  display: inline-block;
+}
+/*.footer {
+  margin: 10px;
+  text-align: center;
+}*/
+.row::after {
+  content:"";
+  clear :both;
+  display:block;
+}
+
+
+/*.ui-sortable-helper {
+  display: table;
+  }
+  
+  .selected {
+  background-color: #666;
+  color: #fff;
+  }*/
+  
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 15px;
+}
+@media only screen and (max-width:600px) {
+  .col-25, .col-75, button[type=submit], .flex-container {
+    width: 100%;
+    margin-top: 0;
+
+}
+table, thead, tbody, th, td, tr { 
+  display: block; 
+}
+thead tr { 
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+tr { border: 1px solid #ccc; }
+
+tbody td {
+  border: none;
+  border-bottom: 1px solid #eee; 
+  position: relative;
+  padding-left: 50%; 
+}
+
+td:before { 
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 45%; 
+  padding-right: 10px; 
+  white-space: nowrap;
+}
+//td:nth-of-type(1):before {content :"Task name:";}
+//td:nth-of-type(2):before {content :"Total Hour:";}
+//td:nth-of-type(3):before {content: "User:";}
+//td:nth-of-type(4):before {content: "Delete:";}
+}
+.is-invalid {
+  border: 1px solid #ff0000;
+}
+.text-danger {
+  color:#ff0000;
+
+}
+.d-none {
+  display: none;
+}

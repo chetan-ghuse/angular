@@ -1,0 +1,17 @@
+<div class="main">
+  <div class="table">
+    <h1>All Users Blogs </h1>
+    <table>
+      <tbody id="tableBody">
+        <tr *ngFor="let record of allUsersBlog; let i=index">
+          <td>{{ i+1 }}</td>
+          <td>{{ record.user["firstName"]}}</td> 
+          <td>{{ record.title }}</td>
+          <td>{{ record.description }}</td>
+          <td>{{ record.content }}</td>
+          <td>{{ record.createdAt }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+ </div>
