@@ -1,11 +1,13 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component  } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
+import { Title } from '@angular/platform-browser';
 
 import { User } from './../user';
 import { ApiServiceService } from './../api-service.service';
+
 
 
 @Component({
@@ -36,8 +38,10 @@ export class SignUpComponent {
   constructor(private fb: FormBuilder, 
               private router: Router, 
               private apiService: ApiServiceService, 
-              notifierService: NotifierService) { 
+              notifierService: NotifierService,
+              private titleService: Title) { 
                 this.notifier = notifierService;
+                this.titleService.setTitle('Sign Up');
               }
   userSignUp = this.fb.group({
     firstName: ['', [Validators.required, Validators.minLength(2)]],
@@ -46,6 +50,7 @@ export class SignUpComponent {
     password: ['', [Validators.required, Validators.pattern(this.passwordRegex), Validators.minLength(7)]]
   });
 
+  
   addCurrentUser() {
     const newUser: User = { ...this.userSignUp.value } ;
     this.apiService.addUser(newUser).subscribe(data => {

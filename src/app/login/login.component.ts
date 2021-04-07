@@ -2,10 +2,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { NotifierService } from 'angular-notifier';
 import { User } from './../user';
 import { ApiServiceService } from './../api-service.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,8 +31,10 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, 
               private router: Router,
               private apiService: ApiServiceService, 
-              notifierService: NotifierService) { 
+              notifierService: NotifierService,
+              private titleService: Title) { 
                 this.notifier = notifierService;
+                this.titleService.setTitle('Login');
               }
   
   

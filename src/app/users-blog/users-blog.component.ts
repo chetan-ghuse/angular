@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 
 import { ApiServiceService } from './../api-service.service';
@@ -10,7 +11,10 @@ import { ApiServiceService } from './../api-service.service';
 export class UsersBlogComponent implements OnInit {
 
   allUsersBlog: Array<any> = [];
-  constructor(private apiService: ApiServiceService) { }
+  constructor(private apiService: ApiServiceService,
+              private titleService: Title) {
+                this.titleService.setTitle('All blog');
+               }
 
   ngOnInit(): void {
     this.getAllUsersBlog();

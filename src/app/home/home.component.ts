@@ -1,5 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { NotifierService } from 'angular-notifier';
@@ -17,9 +18,11 @@ export class HomeComponent implements OnInit {
 
   constructor(private router: Router, 
               private apiService: ApiServiceService, 
-              notifierService: NotifierService) { 
+              notifierService: NotifierService,
+              private titleService: Title) { 
                 this.notifier = notifierService;
                 this.currUserBlog = JSON.parse(localStorage.getItem('userBlog')!);
+                this.titleService.setTitle('Home');
               }
 
   ngOnInit(): void {

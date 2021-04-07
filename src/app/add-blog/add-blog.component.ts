@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 import { NotifierService } from 'angular-notifier';
 import { ApiServiceService } from './../api-service.service';
+
 
 @Component({
   selector: 'app-add-blog',
@@ -28,8 +30,10 @@ export class AddBlogComponent implements OnInit {
   constructor(private fb: FormBuilder,
              private apiService: ApiServiceService,
               notifierService: NotifierService,
-             private router: Router) { 
+             private router: Router,
+             private titleService: Title) { 
               this.notifier = notifierService;
+              this.titleService.setTitle('Add blog');
             }
 
   blogForm = this.fb.group({

@@ -5,13 +5,16 @@
     <table>
       <tbody id="tableBody">
         <tr *ngFor="let record of allUsersBlog; let i=index">
-          <td>{{ i+1 }}</td>
-          <td>{{ record.user["firstName"]}}</td> 
-          <td>{{ record.title }}</td>
-          <td>{{ record.description }}</td>
-          <td>{{ record.content }}</td>
-          <td>{{ record.createdAt }}</td>
-        </tr>
+          <!--<td class="seqno">{{ i+1 }}</td>-->
+          <td class="b-user">Created By: {{ record.user["firstName"]}}</td> 
+          <td class="b-title">{{ record.title }}</td>
+          <td class="b-descp">{{ record.description }}</td>
+          <td class="b-content">{{ record.content }}</td>
+          <td class="b-cmt" *ngIf="record.commentItems.length > 0"><span class="like-s"><img id="like" src="./assets/images/like2.png">{{ record.likeItems.length }}</span><span class="cmt-s">{{ record.commentItems.length }} Comments</span> </td>
+          <td class="b-cmt" *ngIf="record.commentItems.length == 0"><span class="like-s"><img id="like" src="./assets/images/like2.png">{{ record.likeItems.length }}</span><span class="cmt-s">{{ record.commentItems.length }} Comments</span> </td>
+          <td class="b-date">{{ record.createdAt | date: 'MMM dd YYYY'}}</td>
+          <td class=b-img   ><img src="./assets/images/nature.jpeg"></td>
+        </tr> 
       </tbody>
     </table>
   </div>

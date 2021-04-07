@@ -19,6 +19,7 @@ export class ApiServiceService {
   addBlogurl: string = `${this.localhost}addBlog`;
   deleteBlogUrl: string = `${this.localhost}deleteBlog`;
   usersBlogUrl: string = `${this.localhost}usersBlog`;
+  logoutUrl: string = `${this.localhost}logout`;
 
 
   constructor(
@@ -80,6 +81,17 @@ export class ApiServiceService {
       'Authorization': authMsg });
       let options = { headers: headers };
       return this.http.post<any>(this.usersBlogUrl,null,options).pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  loggedOut(): Observable<any> {
+    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    let headers = new HttpHeaders({
+      'Authorization': authMsg });
+      let options = { headers: headers };
+      console.log(authMsg);
+      return this.http.post<any>(this.logoutUrl,null,options).pipe(
         catchError(this.handleError)
       );
   }

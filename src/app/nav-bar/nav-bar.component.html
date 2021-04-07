@@ -8,14 +8,14 @@
         <img src="./assets/images/smily.jpeg" alt="smily">
         <div class="img-dd-content">
           <a routerLink="/profile">Profile</a>
-          <a routerLink="/logout">Log out</a>
+          <a (click)="logout()">Log out</a>
         </div>
       </div>
       <div class="dropdown">
         <button class="dropbtn">Dropdown</button>
         <div class="dropdown-content">
-          <a routerLink="/profile">Profile</a>
-          <a routerLink="/logout">Log out</a>
+          <a >Profile</a>
+          <a (click)="logout()">Logout</a>
         </div>
       </div>
     </div>

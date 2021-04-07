@@ -8,12 +8,14 @@
     <table>
       <tbody id="tableBody">
         <tr *ngFor="let record of currUserBlog; let i=index">
-          <td>{{ i+1 }}</td> 
-          <td>{{ record.title }}</td>
-          <td>{{ record.description }}</td>
-          <td>{{ record.content }}</td>
-          <td>{{ record.createdAt }}</td>
-          <td (click)="deleteBlog(record.id)"><button class="del-btn"type="button">Delete</button></td>
+          <!--<td class="seqno">{{ i+1 }}</td> -->
+          <td class="b-title">{{ record.title }}</td>
+          <td class="b-descp">{{ record.description }}</td>
+          <td class="b-content">{{ record.content }}</td>
+          <td class="b-cmt" *ngIf="record.commentItems.length > 0"><span class="like-s"><img id="like" src="./assets/images/like2.png">{{ record.likeItems.length }}</span><span class="cmt-s">{{ record.commentItems.length }} Comments</span></td>
+          <td class="b-cmt" *ngIf="record.commentItems.length == 0"><span class="like-s"><img id="like" src="./assets/images/like2.png">{{ record.likeItems.length }}</span><span class="cmt-s">{{ record.commentItems.length }} Comments</span></td>
+          <td class="b-date">{{ record.createdAt | date: 'MMM dd YYYY'}}</td>
+          <td class=b-img><img src="./assets/images/nature.jpeg"><button (click)="deleteBlog(record.id)" class="del-btn"type="button">Delete</button></td>
         </tr>
       </tbody>
   </table>

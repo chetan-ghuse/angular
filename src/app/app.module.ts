@@ -1,6 +1,6 @@
 
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -68,8 +68,9 @@ const customNotifierOptions: NotifierOptions = {
     ReactiveFormsModule,
     HttpClientModule,
     NotifierModule.withConfig(customNotifierOptions)
+    
   ],
-  providers: [ ApiServiceService, AuthGuard ],
+  providers: [ ApiServiceService, AuthGuard, Title ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

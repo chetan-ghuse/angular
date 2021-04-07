@@ -27,7 +27,6 @@ td {
   text-align: center;
   padding: 8px;
 }
-
 tr:nth-child(even) {
   background-color: #d6dbdb;
 }
@@ -45,5 +44,66 @@ tr:hover {
   border-radius: 5px;
   padding:5px 15px;
   box-shadow: 1px 1px 5px #9c1005;
+  margin-top: 15px;
+}
+
+.b-title {
+  text-align: left;
+  font-weight: 700;
+  font-family: sans-serif;
+  display: block;
+  border-right: hidden;
+}
+.b-descp {
+  text-align: left;
+  font-weight: 1000;
+  font-size: 20px;
+  font-family: sans-serif;
+  display: block;
+}
+.b-content {
+  font-size: 15px;
+  color:#413f3f;
+  font-family: sans-serif;
+  text-shadow: 2px 2px 6px gray;
+  text-align: justify;
+  display: block;
+}
+.b-cmt {
+  font-family: sans-serif;
+  color: #a3a2a2;
+  display: block;
+  text-align: left;
+  margin-top: 15px;
+  font-size: 14px;
+}
+.cmt-s {
+  color: #faf5f5;
+  margin-right: 3px;
+  background-color: #4817f7;
+  border-radius:2px ;
+  padding: 5px;
+}
+.b-date {
+  display: block;
+  text-align: left; 
+  color: #797777;
+  margin-top: 20px;;
+}
+#like {
+  height:20px;
+  width: 20px;
+  //margin-top: 5px;
+  margin-right: 5px;
+  background-color: IN;
+}
+.like-s {
+  //background-color: #3899c5;
+  position: relative;
+  margin-right: 20px;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  float:left;
 }
 
