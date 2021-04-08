@@ -4,20 +4,78 @@
     <h1>Your Blogs :  </h1>
     <button (click)="navigate()" type="button">Add Blogs</button>
   </div>
-  <div class="table">
+
+  <div class="modal"  tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+                <p>Do you want to delete the block?</p>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="deleteBlog()" >Yes</button>
+            <button type="button" class="btn btn-primary" (click)="onCloseHandled()" >No</button>
+          </div>
+        </div>
+    </div>
+  </div>
+  <ng-template #tipContent >
+    <ul *ngFor="let like of blogLikes">
+      <li *ngIf="blogLikes.length > 0">{{ like.user.firstName }}</li>
+  </ul>
+  <ul *ngIf="blogLikes.length == 0">
+    <li>no likes</li>
+  </ul>
+  </ng-template>
+  <ng-template #popContent>
+    <ul *ngFor="let comment of blogComments">
+      <li *ngIf="blogComments.length > 0">{{ comment.user.firstName }}</li>
+  </ul>
+  <ul *ngIf="blogComments.length == 0">
+    <li>no likes</li>
+  </ul>
+  </ng-template>
+
+  <ng-template #popTitle>
+    Comment given by users: 
+  </ng-template>
+
+  <div class="blog-table">
     <table>
       <tbody id="tableBody">
         <tr *ngFor="let record of currUserBlog; let i=index">
           <!--<td class="seqno">{{ i+1 }}</td> -->
+         
           <td class="b-title">{{ record.title }}</td>
           <td class="b-descp">{{ record.description }}</td>
           <td class="b-content">{{ record.content }}</td>
-          <td class="b-cmt" *ngIf="record.commentItems.length > 0"><span class="like-s"><img id="like" src="./assets/images/like2.png">{{ record.likeItems.length }}</span><span class="cmt-s">{{ record.commentItems.length }} Comments</span></td>
-          <td class="b-cmt" *ngIf="record.commentItems.length == 0"><span class="like-s"><img id="like" src="./assets/images/like2.png">{{ record.likeItems.length }}</span><span class="cmt-s">{{ record.commentItems.length }} Comments</span></td>
+          <td class="b-cmt" *ngIf="record.commentItems.length > 0">
+            <button type="button" class="btn ml-3" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)">
+              <span id="like" class="far fa-thumbs-up">
+                {{ record.likeItems.length }}
+              </span>
+            </button>
+            <button type="button" class="btn" [ngbPopover]="popContent" [popoverTitle]="popTitle" (click)="getComments(i)">
+              <span class="cmt-s">
+                Comments {{ record.commentItems.length }}
+              </span> 
+            </button>
+          </td>
+          <td class="b-cmt" *ngIf="record.commentItems.length == 0">
+            <button type="button" class="btn ml-3" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)">
+              <span id="like" class="far fa-thumbs-up">{{ record.likeItems.length }}</span>
+            </button>
+            <button type="button" class="btn" [ngbPopover]="popContent" [popoverTitle]="popTitle" (click)="getComments(i)">
+              <span class="cmt-s">
+                Comments {{ record.commentItems.length }}
+              </span>
+            </button>
+          </td>
           <td class="b-date">{{ record.createdAt | date: 'MMM dd YYYY'}}</td>
-          <td class=b-img><img src="./assets/images/nature.jpeg"><button (click)="deleteBlog(record.id)" class="del-btn"type="button">Delete</button></td>
+          <td class=b-img><img src="./assets/images/nature.jpeg"><button (click)="getBlogId(record.id)" class="del-btn" class="btn btn-primary mt-4" data-toggle="modal" data-target="#exampleModalCenter" type="button">Delete</button></td>
         </tr>
+      
       </tbody>
   </table>
+ 
 </div>
 

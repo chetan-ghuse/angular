@@ -10,6 +10,7 @@ import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ApiServiceService } from './api-service.service';
 import { AuthGuard } from './auth.guard';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -60,14 +61,15 @@ const customNotifierOptions: NotifierOptions = {
   declarations: [
     AppComponent,
     ...routingComponents,
-    NavBarComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NotifierModule.withConfig(customNotifierOptions)
+    NotifierModule.withConfig(customNotifierOptions),
+    NgbModule
     
   ],
   providers: [ ApiServiceService, AuthGuard, Title ],

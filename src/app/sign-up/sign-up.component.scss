@@ -18,6 +18,9 @@ h1 {
   padding:5px 15px;
   box-shadow: 1px 1px 5px #6c6cf5;
 }
+.row {
+  text-align: center !important;
+}
 @media only screen and (max-width:600px) {
   :host {
     width: 100%;

@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 
 import { User } from './user';
 import{ loginUser } from './loginUser';
-import { blogId } from './blogId';
+
 
 @Injectable({
   providedIn: 'root'
@@ -59,15 +59,14 @@ export class ApiServiceService {
       );
   }
 
-  removeBlog(blogId:blogId): Observable<any> {
+  removeBlog(blogId:number): Observable<any> {
     const authMsg = JSON.parse(localStorage.getItem('authKey')!);
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': authMsg
     });
-    let obj: object;
-    
-    let options = {headers:headers,body: blogId};
+    const obj = {"blogId": blogId};
+    let options = {headers:headers,body: obj};
     return this.http.delete<any>(this.deleteBlogUrl,options).pipe(
       catchError(this.handleError)
     );

@@ -22,7 +22,7 @@ tr:nth-child(even) {
   background-color: #d6dbdb;
 }
 tr:hover {
-  background-color: #b0e9ee;
+  background-color: #8efaa9;
 }
 .b-user{
   text-align: left;
@@ -63,7 +63,7 @@ tr:hover {
 .cmt-s {
   color: #faf5f5;
   margin-right: 3px;
-  background-color: #4817f7;
+  background-color: #0492ca;
   border-radius:2px ;
   padding: 5px;
 }
@@ -78,18 +78,9 @@ tr:hover {
   margin-top: 20px;;
 }
 #like {
-  height:20px;
-  width: 20px;
-  //margin-top: 5px;
-  margin-right: 5px;
-  background-color: IN;
+  padding: 5px;
+  margin-right: 15px;
+  border-radius:2px ;
+  color: white;
+  background-color: #0492ca;
 }
-.like-s {
-  position: relative;
-  margin-right: 20px;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  font-size: 20px;
-  float:left;
-}
-

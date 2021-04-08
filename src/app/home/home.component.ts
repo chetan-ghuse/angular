@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 
 import { NotifierService } from 'angular-notifier';
 import { ApiServiceService } from './../api-service.service';
-import { blogId } from './../blogId';
 
 @Component({
   selector: 'app-home',
@@ -15,18 +14,23 @@ import { blogId } from './../blogId';
 export class HomeComponent implements OnInit {
   private readonly notifier: NotifierService ;
   currUserBlog: Array<any> = [];
+  blogLikes: Array<any> = [];
+  blogComments: Array<any> = [];
+  blogId!: number;
+  display = "none";
 
   constructor(private router: Router, 
               private apiService: ApiServiceService, 
               notifierService: NotifierService,
               private titleService: Title) { 
                 this.notifier = notifierService;
-                this.currUserBlog = JSON.parse(localStorage.getItem('userBlog')!);
+                
                 this.titleService.setTitle('Home');
               }
 
   ngOnInit(): void {
     this.getUserBlog();
+    this.currUserBlog = JSON.parse(localStorage.getItem('userBlog')!);
   }
   getUserBlog() {
   this.apiService.getBlog().subscribe(bdata => {        
@@ -34,13 +38,29 @@ export class HomeComponent implements OnInit {
       localStorage.setItem('userBlog', JSON.stringify(this.currUserBlog));
     });
   }
-  deleteBlog(blogId:number) {
-    const id: blogId = { blogId };
-    this.apiService.removeBlog(id).subscribe(() => {
+  deleteBlog() {
+    this.onCloseHandled();
+    console.log(this.blogId);
+    this.apiService.removeBlog(this.blogId).subscribe(() => {
       this.notifier.notify('success','Blog deleted'); 
       this.getUserBlog();
     }, () => this.notifier.notify('error','Sorry unable to delete'));
 
+  }
+  getBlogId(id: number) {
+    this.blogId = id ;
+    this.display = "block";
+  }
+  onCloseHandled() {
+    this.display = "none";
+  }
+  getLikes(index: number) {
+    //console.log(index);
+    this.blogLikes = this.currUserBlog[index]["likeItems"];
+    //console.log(this.blogLikes);
+  }
+  getComments(index: number) {
+    this.blogComments = this.currUserBlog[index]["commentItems"];
   }
   navigate() {
     this.router.navigateByUrl('/addBlog');
