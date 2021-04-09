@@ -50,6 +50,7 @@ export class ApiServiceService {
   
   createBlog(details: any): Observable<any> {
     const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    //console.log(details);
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': authMsg });

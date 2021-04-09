@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { NotifierService } from 'angular-notifier';
 import { ApiServiceService } from './../api-service.service';
@@ -15,7 +16,6 @@ import { ApiServiceService } from './../api-service.service';
 export class AddBlogComponent implements OnInit {
   titleBlog = "Add Blog!";
   private readonly notifier: NotifierService ;
-  userBlog: Array<any> = [];
 
   get title() {
     return this.blogForm.get('title')!;
@@ -31,7 +31,8 @@ export class AddBlogComponent implements OnInit {
              private apiService: ApiServiceService,
               notifierService: NotifierService,
              private router: Router,
-             private titleService: Title) { 
+             private titleService: Title,
+             public activeModal: NgbActiveModal) { 
               this.notifier = notifierService;
               this.titleService.setTitle('Add blog');
             }
@@ -51,8 +52,8 @@ export class AddBlogComponent implements OnInit {
     const details = this.blogForm.value;
     console.log(details);
     this.apiService.createBlog(details).subscribe(() => {
-      this.router.navigateByUrl('/home');
       this.notifier.notify('success','Blog added successfully');
     }, () => this.notifier.notify('error','Sorry blog is not added')); 
   }
+
 }

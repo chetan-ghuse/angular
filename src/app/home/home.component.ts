@@ -2,9 +2,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { NotifierService } from 'angular-notifier';
+import { AddBlogComponent } from '../add-blog/add-blog.component';
 import { ApiServiceService } from './../api-service.service';
+
 
 @Component({
   selector: 'app-home',
@@ -22,7 +25,8 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, 
               private apiService: ApiServiceService, 
               notifierService: NotifierService,
-              private titleService: Title) { 
+              private titleService: Title,
+              private modalService: NgbModal) { 
                 this.notifier = notifierService;
                 
                 this.titleService.setTitle('Home');
@@ -47,9 +51,9 @@ export class HomeComponent implements OnInit {
     }, () => this.notifier.notify('error','Sorry unable to delete'));
 
   }
-  getBlogId(id: number) {
+  getBlogId(id: number, content: any) {
     this.blogId = id ;
-    this.display = "block";
+    this.modalService.open(content, { centered: true });
   }
   onCloseHandled() {
     this.display = "none";
@@ -62,7 +66,7 @@ export class HomeComponent implements OnInit {
   getComments(index: number) {
     this.blogComments = this.currUserBlog[index]["commentItems"];
   }
-  navigate() {
-    this.router.navigateByUrl('/addBlog');
+  open () {
+    this.modalService.open(AddBlogComponent);
   }
 }

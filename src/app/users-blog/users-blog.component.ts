@@ -11,6 +11,9 @@ import { ApiServiceService } from './../api-service.service';
 export class UsersBlogComponent implements OnInit {
 
   allUsersBlog: Array<any> = [];
+  blogLikes: Array<any> = [];
+  blogComments: Array<any> = [];
+
   constructor(private apiService: ApiServiceService,
               private titleService: Title) {
                 this.titleService.setTitle('All blog');
@@ -26,6 +29,15 @@ export class UsersBlogComponent implements OnInit {
       this.allUsersBlog = bdata["response"];
       localStorage.setItem('allUsers', JSON.stringify(this.allUsersBlog));
     });
+  }
+
+  getLikes(index: number) {
+    //console.log(index);
+    this.blogLikes = this.allUsersBlog[index]["likeItems"];
+    //console.log(this.blogLikes);
+  }
+  getComments(index: number) {
+    this.blogComments = this.allUsersBlog[index]["commentItems"];
   }
 
 }
