@@ -31,7 +31,7 @@
       <li *ngIf="blogComments.length > 0">{{ comment.user.firstName }}</li>
   </ul>
   <ul *ngIf="blogComments.length == 0">
-    <li>no likes</li>
+    <li>no comments</li>
   </ul>
   </ng-template>
 
@@ -49,22 +49,22 @@
           <td class="b-descp">{{ record.description }}</td>
           <td class="b-content">{{ record.content }}</td>
           <td class="b-cmt" *ngIf="record.commentItems.length > 0">
-            <button type="button" class="btn ml-3" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)">
+            <button type="button" class="btn btn-primary btn-sm" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)" (click)=increaseLikes(record.id)>
               <span id="like" class="far fa-thumbs-up">
                 {{ record.likeItems.length }}
               </span>
             </button>
-            <button type="button" class="btn" [ngbPopover]="popContent" [popoverTitle]="popTitle" (click)="getComments(i)">
+            <button type="button" class="btn btn-primary ml-3 btn-sm" [ngbPopover]="popContent" [popoverTitle]="popTitle" (click)="getComments(i)">
               <span class="cmt-s">
                 Comments {{ record.commentItems.length }}
               </span> 
             </button>
           </td>
           <td class="b-cmt" *ngIf="record.commentItems.length == 0">
-            <button type="button" class="btn ml-3" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)">
+            <button type="button" class="btn btn-primary btn-sm" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)" (click)="increaseLikes(record.id)">
               <span id="like" class="far fa-thumbs-up">{{ record.likeItems.length }}</span>
             </button>
-            <button type="button" class="btn" [ngbPopover]="popContent" [popoverTitle]="popTitle" (click)="getComments(i)">
+            <button type="button" class="btn btn-primary ml-3 btn-sm" [ngbPopover]="popContent" [popoverTitle]="popTitle" (click)="getComments(i)">
               <span class="cmt-s">
                 Comments {{ record.commentItems.length }}
               </span>

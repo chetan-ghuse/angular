@@ -15,13 +15,14 @@ import { ApiServiceService } from './../api-service.service';
 })
 export class LoginComponent implements OnInit {
 
-  title = "Login!";
+  title = 'Login!';
   emailRegex =  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ;
   passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
   get emailId() {
     return this.loginForm.get('emailId')!;
   }
+  
   get password() {
     return this.loginForm.get('password')!;
   }
@@ -48,6 +49,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.setItem('authKey','');
+    localStorage.setItem('currentUser','');
   }
   
   onLogin() {

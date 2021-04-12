@@ -17,7 +17,7 @@ import { ApiServiceService } from './../api-service.service';
   
 })
 export class SignUpComponent {
-  title = "Sign Up!";
+  title = 'Sign Up!';
   emailRegex =  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ;
   passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
   private readonly notifier: NotifierService ;
@@ -25,12 +25,15 @@ export class SignUpComponent {
   get firstName() {
     return this.userSignUp.get('firstName')!;
   }
+
   get lastName() {
     return this.userSignUp.get('lastName')!;
   }
+
   get emailId() {
     return this.userSignUp.get('emailId')!;
   }
+
   get password() {
     return this.userSignUp.get('password')!;
   }
@@ -54,7 +57,7 @@ export class SignUpComponent {
   addCurrentUser() {
     const newUser: User = { ...this.userSignUp.value } ;
     this.apiService.addUser(newUser).subscribe(data => {
-      console.log("POST Request is successful ", data);
+      console.log('POST Request is successful ', data);
       this.notifier.notify('success', 'User added successfully');
       this.router.navigateByUrl('/login');
       }, () => this.notifier.notify('error', 'Provided user already exist'));

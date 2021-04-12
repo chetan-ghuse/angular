@@ -20,7 +20,8 @@ export class ApiServiceService {
   deleteBlogUrl: string = `${this.localhost}deleteBlog`;
   usersBlogUrl: string = `${this.localhost}usersBlog`;
   logoutUrl: string = `${this.localhost}logout`;
-
+  getUserUrl: string = `${this.localhost}profileDetails`;
+  likeUrl: string = `${this.localhost}addRemoveLike`;
 
   constructor(
     private http: HttpClient) { }
@@ -96,6 +97,29 @@ export class ApiServiceService {
       );
   }
 
+  getCurrUser(): Observable<any> {
+    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': authMsg });
+      let options = { headers: headers };
+      return this.http.get<any>(this.getUserUrl,options).pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  addLikes(blogId: number): Observable<any> {
+    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': authMsg });
+      let options = { headers: headers };
+      const obj = {"blogId": blogId};
+      return this.http.post<any>(this.likeUrl, obj,options).pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       
@@ -114,5 +138,8 @@ export class ApiServiceService {
   loggedInUser() {
     return !!localStorage.getItem('authKey');
   }
-    
+  
+  getUserDetail() {
+  return !!localStorage.getItem('currentUser');
+  } 
 }

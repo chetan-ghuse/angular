@@ -13,6 +13,7 @@ h1 {
   background-color: orange;
 }
 .blog-table {
+  width: 60%;
   padding: 10px;
   text-align: center;
   margin: auto;
@@ -27,11 +28,11 @@ td {
   text-align: center;
   padding: 8px;
 }
-tr:nth-child(even) {
+/*tr:nth-child(even) {
   background-color: #d6dbdb;
-}
+}*/
 tr:hover {
-  background-color: #eed5b0;
+  background-color: #d6dbdb;
 }
 .edit-btn {
   background-color: aqua;
@@ -80,9 +81,9 @@ tr:hover {
 .cmt-s {
   color: #faf5f5;
   margin-right: 3px;
-  background-color: #0492ca;
+  /*background-color: #0492ca;*/
   border-radius:2px ;
-  padding: 5px;
+  /*padding: 5px;*/
 }
 .b-date {
   display: block;
@@ -91,9 +92,9 @@ tr:hover {
   margin-top: 20px;;
 }
 #like {
-  padding: 5px;
+  /*padding: 5px;*/
   margin-right: 15px;
   border-radius:2px ;
   color: white ;
-  background-color: #0492ca;
+  /*background-color: #0492ca;*/
 }
