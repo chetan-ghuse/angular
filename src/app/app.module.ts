@@ -14,6 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
+
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -61,7 +62,7 @@ const customNotifierOptions: NotifierOptions = {
   declarations: [
     AppComponent,
     ...routingComponents,
-    NavBarComponent
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,

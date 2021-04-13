@@ -12,6 +12,7 @@ import { ApiServiceService } from './../api-service.service';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
+  active = 1;
   private readonly notifier: NotifierService ;
   constructor(private apiService: ApiServiceService,
               private router: Router,

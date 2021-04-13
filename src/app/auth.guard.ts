@@ -15,6 +15,7 @@ export class AuthGuard implements CanActivate {
     if(this.apiService.loggedInUser()) {
       this.apiService.getCurrUser().subscribe(data => {
         console.log(data);
+        localStorage.setItem('currentUser', JSON.stringify(data.response));
         return true;
       },() => {
           this.router.navigate(['/login']);

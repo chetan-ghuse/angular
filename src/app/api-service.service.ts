@@ -22,6 +22,7 @@ export class ApiServiceService {
   logoutUrl: string = `${this.localhost}logout`;
   getUserUrl: string = `${this.localhost}profileDetails`;
   likeUrl: string = `${this.localhost}addRemoveLike`;
+  updateUserUrl: string = `${this.localhost}updateUser`;
 
   constructor(
     private http: HttpClient) { }
@@ -116,6 +117,18 @@ export class ApiServiceService {
       let options = { headers: headers };
       const obj = {"blogId": blogId};
       return this.http.post<any>(this.likeUrl, obj,options).pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  updateUser(newInfo: any): Observable<any> {
+    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': authMsg });
+      let options = { headers: headers };
+      newInfo.password = localStorage.getItem('password');
+      return this.http.put<any>(this.updateUserUrl,newInfo,options).pipe(
         catchError(this.handleError)
       );
   }

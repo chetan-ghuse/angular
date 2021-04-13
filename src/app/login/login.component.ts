@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password')!;
   }
   
-  private readonly notifier: NotifierService ;
+  private readonly notifier: NotifierService;
 
   constructor(private fb: FormBuilder, 
               private router: Router,
@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     localStorage.setItem('authKey','');
     localStorage.setItem('currentUser','');
+    localStorage.setItem('password','');
   }
   
   onLogin() {
@@ -57,6 +58,7 @@ export class LoginComponent implements OnInit {
     this.apiService.loggedIn(newUser).subscribe(data => {             
       localStorage.setItem('authKey',JSON.stringify(data['msg']));
       this.notifier.notify('success','Logged in Successfully!');
+      localStorage.setItem('password',this.loginForm.value.password);
       this.router.navigateByUrl('/home');
       }, () => this.notifier.notify('error','emailId or password is invalid! '));
     }
