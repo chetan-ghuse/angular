@@ -2,44 +2,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { UsersBlogComponent } from './users-blog/users-blog.component';
-import { AddBlogComponent } from './add-blog/add-blog.component';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { MyProfileComponent } from './my-profile/my-profile.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { 
     path: '',
-    redirectTo:'/addUser', 
-    pathMatch:'full' 
-  }, { 
-    path:'addUser', 
-    component: SignUpComponent 
-  }, { 
-    path:'login', 
-    component: LoginComponent 
-  }, { 
-    path:'home', 
-    component: HomeComponent,
-    canActivate: [ AuthGuard ]
-  }, { 
-    path:'addBlog', 
-    component: AddBlogComponent,
-    canActivate: [ AuthGuard ]
-  }, { 
-    path:'usersBlog', 
-    component: UsersBlogComponent,
-    canActivate: [ AuthGuard ]
+    redirectTo:'/entry/login', 
+    pathMatch:'full'
   }, {
-    path:'profile',
-    component: MyProfileComponent,
-    canActivate: [ AuthGuard ]
+    path: 'entry',
+    loadChildren: () => import('./entry/entry.module').then(m => m.EntryModule)
+  }, {
+    path: 'user-portal',
+    loadChildren: () => import('./user-portal/user-portal.module').then(m => m.UserPortalModule)
   }, { 
     path: '**', 
-    redirectTo:'/addUser' 
+    redirectTo:'/entry/login', 
   }
 ];
 
@@ -48,11 +26,9 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [
-  SignUpComponent, 
-  LoginComponent, 
-  HomeComponent,             
-  AddBlogComponent, 
+/*export const routingComponents = [
+  HomeComponent,
+  AddBlogComponent,
   UsersBlogComponent,
   MyProfileComponent
-];
+];*/

@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotifierService } from 'angular-notifier';
 
 import { AddBlogComponent } from '../add-blog/add-blog.component';
-import { ApiServiceService } from './../api-service.service';
+import { ApiServiceService } from 'app/api-service.service';
 
 
 @Component({

@@ -91,10 +91,18 @@ tr:hover {
   color: #797777;
   margin-top: 20px;;
 }
+
 #like {
   /*padding: 5px;*/
   margin-right: 15px;
   border-radius:2px ;
   color: white ;
   /*background-color: #0492ca;*/
+}
+img {
+  height: 170px;
+  width: 170px;
+}
+.b-img button {
+  display: block;
 }

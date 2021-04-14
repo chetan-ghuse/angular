@@ -1,5 +1,4 @@
 
-<app-nav-bar></app-nav-bar>
   <div class="blog">
     <h1>Your Blogs :</h1>
     <button (click)="open()" type="button">Add Blogs</button>
@@ -71,7 +70,9 @@
             </button>
           </td>
           <td class="b-date">{{ record.createdAt | date: 'MMM dd YYYY'}}</td>
-          <td class=b-img><img src="./assets/images/nature.jpeg"><button (click)="getBlogId(record.id, content)" class="del-btn" class="btn btn-primary mt-4" data-toggle="modal" data-target="#exampleModalCenter" type="button">Delete</button></td>
+          <td class="b-img"><img src="./assets/images/nature.jpeg">
+            <button (click)="getBlogId(record.id, content)" class="del-btn" class="btn btn-danger mt-3 ml-5" data-toggle="modal" data-target="#exampleModalCenter" type="button">Delete</button>
+          </td>
         </tr>
       
       </tbody>

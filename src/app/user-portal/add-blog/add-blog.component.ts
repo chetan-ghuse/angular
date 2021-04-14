@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { NotifierService } from 'angular-notifier';
-import { ApiServiceService } from './../api-service.service';
+import { ApiServiceService } from 'app/api-service.service';
 
 @Component({
   selector: 'app-add-blog',

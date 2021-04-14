@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 
-import { ApiServiceService } from './../api-service.service';
+import { ApiServiceService } from 'app/api-service.service';
 import { NotifierService } from 'angular-notifier';
 
 @Component({

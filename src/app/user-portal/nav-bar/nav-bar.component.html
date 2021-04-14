@@ -23,19 +23,19 @@
   -->
   <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="navbar navbar-light mynav" style="background-color: #6df0f2;">
   <li [ngbNavItem]="1">
-    <a ngbNavLink routerLink='/home' class="text"><b>Home</b></a>
+    <a ngbNavLink routerLink='/user-portal/home' class="text"><b>Home</b></a>
     <ng-template ngbNavContent>
     </ng-template>
   </li>
   <li [ngbNavItem]="2">
-    <a ngbNavLink routerLink='/usersBlog'><b>All Blogs</b></a>
+    <a ngbNavLink routerLink='/user-portal/usersBlog'><b>All Blogs</b></a>
     <ng-template ngbNavContent>
     </ng-template>
   </li>
   <li ngbDropdown class="nav-item ml-auto">
     <a href (click)="false" class="nav-link" ngbDropdownToggle><i class="fa fa-fw fa-user mr-1 5x"></i>Dropdown</a>
     <div ngbDropdownMenu>
-      <a routerLink="/profile" ngbDropdownItem>Profile</a>
+      <a routerLink="/user-portal/profile" ngbDropdownItem>Profile</a>
       <div class="dropdown-divider"></div>
       <button ngbDropdownItem (click)="logout()">Logout</button>
     </div>

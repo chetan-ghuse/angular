@@ -5,10 +5,8 @@ import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { Title } from '@angular/platform-browser';
 
-import { User } from './../user';
-import { ApiServiceService } from './../api-service.service';
-
-
+import { User } from 'app/user';
+import { ApiServiceService } from 'app/api-service.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -59,7 +57,7 @@ export class SignUpComponent {
     this.apiService.addUser(newUser).subscribe(data => {
       console.log('POST Request is successful ', data);
       this.notifier.notify('success', 'User added successfully');
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/entry/login');
       }, () => this.notifier.notify('error', 'Provided user already exist'));
   }
 

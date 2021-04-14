@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 import { NotifierService } from 'angular-notifier';
-import { User } from './../user';
-import { ApiServiceService } from './../api-service.service';
+import { User } from 'app/user';
+import { ApiServiceService } from 'app/api-service.service';
 
 @Component({
   selector: 'app-login',
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('authKey',JSON.stringify(data['msg']));
       this.notifier.notify('success','Logged in Successfully!');
       localStorage.setItem('password',this.loginForm.value.password);
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/user-portal/home');
       }, () => this.notifier.notify('error','emailId or password is invalid! '));
     }
 

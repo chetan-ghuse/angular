@@ -4,14 +4,14 @@ import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NotifierService } from 'angular-notifier';
 
-import { ApiServiceService } from './../api-service.service';
+import { ApiServiceService } from 'app/api-service.service';
 
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.component.html',
   styleUrls: ['./my-profile.component.scss']
 })
-export class MyProfileComponent implements OnInit {
+export class MyProfileComponent  {
 
 	private readonly notifier: NotifierService;
 	currUser = JSON.parse(localStorage.getItem('currentUser')!);
@@ -31,15 +31,12 @@ export class MyProfileComponent implements OnInit {
   	emailId: [this.currUser.emailId]
   })
 
-  ngOnInit(): void {
-  }
-
   backToHome() {
-  	this.router.navigateByUrl('/home');
+  	this.router.navigateByUrl('/user-portal/home');
   }
 
   toggle() {
-
+  	this.currUser = JSON.parse(localStorage.getItem('currentUser')!);
   	this.show = !this.show;
   }
   
@@ -47,7 +44,12 @@ export class MyProfileComponent implements OnInit {
   	this.apiService.updateUser(this.editForm.value).subscribe((data) => {
   		console.log(data);
   		this.notifier.notify('success','Updation successfully');
-  		this.router.navigateByUrl('/home');
+  		 this.apiService.getCurrUser().subscribe(data => {
+        console.log(data);
+        localStorage.setItem('currentUser', JSON.stringify(data.response));
+        this.toggle();
+      },() => this.toggle());
+  		//this.router.navigateByUrl('/home');
   	},() => this.notifier.notify('error','Unable to update'));
   }
 }

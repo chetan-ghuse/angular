@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 
-import { ApiServiceService } from './../api-service.service';
+import { ApiServiceService } from 'app/api-service.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -27,13 +27,13 @@ export class NavBarComponent {
       this.notifier.notify('success', 'logout successfully');
       localStorage.setItem('userBlog','');
       localStorage.setItem('allUsers','');
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/entry/login');
     }, () => {
         //this.notifier.notify('error', 'unable to logout');
         this.notifier.notify('success', 'logout successfully');
         localStorage.setItem('userBlog','');
         localStorage.setItem('allUsers','');
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/entry/login');
     });
   }
   
