@@ -1,3 +1,3 @@
 export interface blogId {
-  "blogId": number;
+  "blogId": number
 }

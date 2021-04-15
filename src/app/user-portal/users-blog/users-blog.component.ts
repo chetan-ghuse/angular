@@ -1,8 +1,12 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
+import{ Store, select } from '@ngrx/store';
 
 import { ApiServiceService } from 'app/api-service.service';
 import { NotifierService } from 'angular-notifier';
+import * as UsersBlogActions from 'app/users-blog.actions';
+import * as fromUsersBlog from 'app/users-blog.selectors';
+import { AllUsersBlog } from 'app/AllUsersBlog';
 
 @Component({
   selector: 'app-users-blog',
@@ -18,19 +22,33 @@ export class UsersBlogComponent implements OnInit {
 
   constructor(private apiService: ApiServiceService,
               private titleService: Title,
-              notifierService: NotifierService) {
+              notifierService: NotifierService,
+              private store: Store
+              ) {
                 this.titleService.setTitle('All blog');
                 this.notifier = notifierService;
                }
 
   ngOnInit(): void {
-    this.getAllUsersBlog();
-    this.allUsersBlog = JSON.parse(localStorage.getItem('allUsers')!);
+
+    this.store.dispatch(new UsersBlogActions.LoadUsersBlogs());
+
+    this.store.pipe(select(fromUsersBlog.getUsersBlog)).subscribe(
+      usersBlog => {
+        console.log(usersBlog);
+        this.allUsersBlog = usersBlog;
+      }
+
+    )
+
+    //this.getAllUsersBlog();
+    //this.allUsersBlog = JSON.parse(localStorage.getItem('allUsers')!);
   }
 
   getAllUsersBlog() {
     this.apiService.allUsersBlog().subscribe(bdata => {
       this.allUsersBlog = bdata['response'];
+      console.log(bdata);
       localStorage.setItem('allUsers', JSON.stringify(this.allUsersBlog));
     });
   }

@@ -11,6 +11,12 @@ import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { ApiServiceService } from './api-service.service';
 import { AuthGuard } from './auth.guard';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { UsersBlogEffects } from './users-blog.effects';
 
 
 
@@ -70,7 +76,10 @@ const customNotifierOptions: NotifierOptions = {
     ReactiveFormsModule,
     HttpClientModule,
     NotifierModule.withConfig(customNotifierOptions),
-    NgbModule
+    NgbModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([UsersBlogEffects])
     
   ],
   providers: [ ApiServiceService, AuthGuard, Title ],
