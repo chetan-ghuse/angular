@@ -37,6 +37,11 @@ export function reducer(state = initialState, action: UsersBlogActions): State {
   		error: action.payload.error
   	}
 
+  	case UsersBlogActionTypes.LoadUsersBlogsLikes:
+  	return {
+  		...state
+  	}
+
     default:
     return {
     	...state

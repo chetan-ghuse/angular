@@ -17,6 +17,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { UsersBlogEffects } from './users-blog.effects';
+import { GetUserEffects } from './get-user.effects';
 
 
 
@@ -79,7 +80,7 @@ const customNotifierOptions: NotifierOptions = {
     NgbModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([UsersBlogEffects])
+    EffectsModule.forRoot([UsersBlogEffects, GetUserEffects])
     
   ],
   providers: [ ApiServiceService, AuthGuard, Title ],

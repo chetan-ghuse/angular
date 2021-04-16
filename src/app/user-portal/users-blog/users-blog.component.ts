@@ -34,24 +34,20 @@ export class UsersBlogComponent implements OnInit {
     this.store.dispatch(new UsersBlogActions.LoadUsersBlogs());
 
     this.store.pipe(select(fromUsersBlog.getUsersBlog)).subscribe(
-      usersBlog => {
-        console.log(usersBlog);
-        this.allUsersBlog = usersBlog;
-      }
-
-    )
+      usersBlog => this.allUsersBlog = usersBlog
+      )
 
     //this.getAllUsersBlog();
     //this.allUsersBlog = JSON.parse(localStorage.getItem('allUsers')!);
   }
 
-  getAllUsersBlog() {
+  /*getAllUsersBlog() {
     this.apiService.allUsersBlog().subscribe(bdata => {
       this.allUsersBlog = bdata['response'];
       console.log(bdata);
       localStorage.setItem('allUsers', JSON.stringify(this.allUsersBlog));
     });
-  }
+  }*/
 
   getLikes(index: number) {
     this.blogLikes = this.allUsersBlog[index]['likeItems'];
@@ -62,14 +58,16 @@ export class UsersBlogComponent implements OnInit {
   }
 
   increaseLikes(blogId: number) {
-    this.apiService.addLikes(blogId).subscribe((data) => {
+    /*this.apiService.addLikes(blogId).subscribe((data) => {
       if(data.msg == 'Like entry added') {
       this.notifier.notify('success','Like added successfully');
       } else if(data.msg == 'Like Deleted'){
           this.notifier.notify('success','Like removed successfully');
       }
       this.getAllUsersBlog();
-    },() => this.notifier.notify('error','Like is not added'));
+    },() => this.notifier.notify('error','Like is not added'));*/
+
+    this.store.dispatch(new UsersBlogActions.LoadUsersBlogsLikes(blogId));
   }
 
 }

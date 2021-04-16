@@ -7,9 +7,9 @@ const getAllUsersBlogFeatureState = createFeatureSelector<State>('usersBlogState
 export const getUsersBlog = createSelector(
 	getAllUsersBlogFeatureState,
 	state => state.allUsersBlog
-	)
+)
 
 export const getError = createSelector(
 	getAllUsersBlogFeatureState,
 	state => state.error
-	)
+)

@@ -26,7 +26,8 @@ export class HomeComponent implements OnInit {
               private apiService: ApiServiceService, 
               notifierService: NotifierService,
               private titleService: Title,
-              private modalService: NgbModal) { 
+              private modalService: NgbModal
+              ) { 
                 this.notifier = notifierService;
                 this.titleService.setTitle('Home');
               }

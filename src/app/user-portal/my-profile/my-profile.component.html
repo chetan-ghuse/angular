@@ -1,13 +1,13 @@
 	<div *ngIf="show;then content else edit"></div>
 	<ng-template #content>
 		<div class="head">
-			<h2>{{ currUser.firstName}}'s Profile</h2>
+			<h2>{{ currUser.response.firstName}}'s Profile</h2>
 		</div>
 		<hr>
 		<div class="body">
-			<h6> First Name : {{ currUser.firstName }} </h6>
-			<h6> Last Name  : {{ currUser.lastName  }} </h6>
-			<h6> Email Id   : {{ currUser.emailId   }} </h6>
+			<h6> First Name : {{ currUser.response.firstName }} </h6>
+			<h6> Last Name  : {{ currUser.response.lastName  }} </h6>
+			<h6> Email Id   : {{ currUser.response.emailId   }} </h6>
 		</div>
 		<hr>
 		<div class="foot">
@@ -46,7 +46,7 @@
 	      </div>
 	      <div class="col-75">
 	        <input type="text" id="emailId" name=emailId formControlName="emailId"  
-	          placeholder="update email id..." readonly>
+	          placeholder="update email id...">
 	       </div>
 	    </div>
 		</form>

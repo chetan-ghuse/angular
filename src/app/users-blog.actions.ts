@@ -6,6 +6,7 @@ export enum UsersBlogActionTypes {
   LoadUsersBlogs = '[UsersBlog] Load UsersBlogs',
   LoadUsersBlogsSuccess = '[UsersBlog] Load UsersBlogs Success',
   LoadUsersBlogsFailure = '[UsersBlog] Load UsersBlogs Failure',
+  LoadUsersBlogsLikes = '[UsersBlog] Load UsersBlogs Likes',
 }
 
 export class LoadUsersBlogs implements Action {
@@ -22,5 +23,10 @@ export class LoadUsersBlogsFailure implements Action {
   constructor(public payload: { error: string }) { }
 }
 
-export type UsersBlogActions = LoadUsersBlogs | LoadUsersBlogsSuccess | LoadUsersBlogsFailure;
+export class LoadUsersBlogsLikes implements Action {
+  readonly type = UsersBlogActionTypes.LoadUsersBlogsLikes;
+	constructor(public payload: number ) { } 
+}
+
+export type UsersBlogActions = LoadUsersBlogs | LoadUsersBlogsSuccess | LoadUsersBlogsFailure | LoadUsersBlogsLikes;
 

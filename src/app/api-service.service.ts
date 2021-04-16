@@ -23,9 +23,20 @@ export class ApiServiceService {
   getUserUrl: string = `${this.localhost}profileDetails`;
   likeUrl: string = `${this.localhost}addRemoveLike`;
   updateUserUrl: string = `${this.localhost}updateUser`;
+  authMsg: string = JSON.parse(localStorage.getItem('authKey')!);
+
 
   constructor(
     private http: HttpClient) { }
+
+  getHeader() {
+    return (
+      new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.authMsg 
+      })
+     )
+  }
 
   addUser(newUser: User): Observable<User> {
     return this.http.post<User>(this.singUpUrl, newUser).pipe(
@@ -40,10 +51,7 @@ export class ApiServiceService {
   }
 
   getBlog(): Observable<any> {
-    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': authMsg });
+    let headers = this.getHeader();
       let options = { headers: headers };
       return this.http.post<any>(this.blogUrl,null,options).pipe(
         catchError(this.handleError)
@@ -51,23 +59,17 @@ export class ApiServiceService {
   }
   
   createBlog(details: any): Observable<any> {
-    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
     //console.log(details);
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': authMsg });
-      let options = {headers: headers};
-      return this.http.post<any>(this.addBlogurl,details,options).pipe(
-        catchError(this.handleError)
-      );
+    let headers = this.getHeader();
+    let options = {headers: headers};
+    return this.http.post<any>(this.addBlogurl,details,options).pipe(
+      catchError(this.handleError)
+    );
   }
 
   removeBlog(blogId:number): Observable<any> {
     const authMsg = JSON.parse(localStorage.getItem('authKey')!);
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': authMsg
-    });
+    let headers = this.getHeader();
     const obj = {"blogId": blogId};
     let options = {headers:headers,body: obj};
     return this.http.delete<any>(this.deleteBlogUrl,options).pipe(
@@ -77,60 +79,45 @@ export class ApiServiceService {
   }
 
   allUsersBlog(): Observable<any> {
-    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': authMsg });
-      let options = { headers: headers };
-      return this.http.post<any>(this.usersBlogUrl,null,options).pipe(
-        catchError(this.handleError)
-      );
+    let headers = this.getHeader();
+    let options = { headers: headers };
+    return this.http.post<any>(this.usersBlogUrl,null,options).pipe(
+      catchError(this.handleError)
+    );
   }
 
   loggedOut(): Observable<any> {
-    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
-    let headers = new HttpHeaders({
-      'Authorization': authMsg });
-      let options = { headers: headers };
-      console.log(authMsg);
-      return this.http.post<any>(this.logoutUrl,null,options).pipe(
-        catchError(this.handleError)
-      );
+    let headers = this.getHeader();
+    let options = { headers: headers };
+    return this.http.post<any>(this.logoutUrl,null,options).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getCurrUser(): Observable<any> {
-    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': authMsg });
-      let options = { headers: headers };
-      return this.http.get<any>(this.getUserUrl,options).pipe(
-        catchError(this.handleError)
-      );
+    let headers = this.getHeader();
+    let options = { headers: headers };
+    return this.http.get<any>(this.getUserUrl,options).pipe(
+      catchError(this.handleError)
+    );
   }
 
   addLikes(blogId: number): Observable<any> {
-    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': authMsg });
-      let options = { headers: headers };
-      const obj = {"blogId": blogId};
-      return this.http.post<any>(this.likeUrl, obj,options).pipe(
-        catchError(this.handleError)
-      );
+    let headers = this.getHeader();
+    let options = { headers: headers };
+    const obj = {"blogId": blogId};
+    return this.http.post<any>(this.likeUrl, obj,options).pipe(
+      catchError(this.handleError)
+    );
   }
 
   updateUser(newInfo: any): Observable<any> {
-    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': authMsg });
-      let options = { headers: headers };
-      newInfo.password = localStorage.getItem('password');
-      return this.http.put<any>(this.updateUserUrl,newInfo,options).pipe(
-        catchError(this.handleError)
-      );
+    let headers = this.getHeader();
+    let options = { headers: headers };
+    newInfo.password = localStorage.getItem('password');
+    return this.http.put<any>(this.updateUserUrl,newInfo,options).pipe(
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
