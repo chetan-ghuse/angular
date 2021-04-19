@@ -6,8 +6,8 @@ import {
   MetaReducer,
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-import * as fromUsersBlog from '../users-blog.reducer';
-import * as fromGetUser from '../get-user.reducer';
+import * as fromUsersBlog from 'app/state/reducer/users-blog.reducer';
+import * as fromGetUser from 'app/state/reducer/get-user.reducer';
 
 
 export interface State {

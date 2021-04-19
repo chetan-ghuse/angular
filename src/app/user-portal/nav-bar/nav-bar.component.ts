@@ -1,8 +1,10 @@
 
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
+import { Subject } from 'rxjs';
+import { takeUntil} from 'rxjs/operators';
 
 import { ApiServiceService } from 'app/api-service.service';
 
@@ -11,9 +13,11 @@ import { ApiServiceService } from 'app/api-service.service';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnDestroy {
   active = 1;
   private readonly notifier: NotifierService ;
+  private ngUnsubscribe: Subject<any> = new Subject();
+
   constructor(private apiService: ApiServiceService,
               private router: Router,
               notifierService: NotifierService,
@@ -22,7 +26,9 @@ export class NavBarComponent {
                }
 
   logout() {
-    this.apiService.loggedOut().subscribe(data => {
+    this.apiService.loggedOut()
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe(data => {
       console.log("POST Request is successful ", data);
       this.notifier.notify('success', 'logout successfully');
       localStorage.setItem('userBlog','');
@@ -37,5 +43,9 @@ export class NavBarComponent {
     });
   }
   
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
 }

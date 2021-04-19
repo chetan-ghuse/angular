@@ -23,13 +23,13 @@ export class ApiServiceService {
   getUserUrl: string = `${this.localhost}profileDetails`;
   likeUrl: string = `${this.localhost}addRemoveLike`;
   updateUserUrl: string = `${this.localhost}updateUser`;
-  authMsg: string = JSON.parse(localStorage.getItem('authKey')!);
+  //authMsg: string = localStorage.getItem('authKey')!;
 
 
   constructor(
     private http: HttpClient) { }
 
-  getHeader() {
+  /*getHeader() {
     return (
       new HttpHeaders({
         'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ export class ApiServiceService {
       })
      )
   }
-
+*/
   addUser(newUser: User): Observable<User> {
     return this.http.post<User>(this.singUpUrl, newUser).pipe(
       catchError(this.handleError)
@@ -51,7 +51,11 @@ export class ApiServiceService {
   }
 
   getBlog(): Observable<any> {
-    let headers = this.getHeader();
+    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authMsg 
+      });
       let options = { headers: headers };
       return this.http.post<any>(this.blogUrl,null,options).pipe(
         catchError(this.handleError)
@@ -60,7 +64,12 @@ export class ApiServiceService {
   
   createBlog(details: any): Observable<any> {
     //console.log(details);
-    let headers = this.getHeader();
+    //let headers = this.getHeader();
+    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authMsg 
+      });
     let options = {headers: headers};
     return this.http.post<any>(this.addBlogurl,details,options).pipe(
       catchError(this.handleError)
@@ -68,8 +77,13 @@ export class ApiServiceService {
   }
 
   removeBlog(blogId:number): Observable<any> {
+    //const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    //let headers = this.getHeader();
     const authMsg = JSON.parse(localStorage.getItem('authKey')!);
-    let headers = this.getHeader();
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authMsg 
+      });
     const obj = {"blogId": blogId};
     let options = {headers:headers,body: obj};
     return this.http.delete<any>(this.deleteBlogUrl,options).pipe(
@@ -79,7 +93,12 @@ export class ApiServiceService {
   }
 
   allUsersBlog(): Observable<any> {
-    let headers = this.getHeader();
+    //let headers = this.getHeader();
+    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authMsg 
+      });
     let options = { headers: headers };
     return this.http.post<any>(this.usersBlogUrl,null,options).pipe(
       catchError(this.handleError)
@@ -87,7 +106,12 @@ export class ApiServiceService {
   }
 
   loggedOut(): Observable<any> {
-    let headers = this.getHeader();
+    //let headers = this.getHeader();
+    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authMsg 
+      });
     let options = { headers: headers };
     return this.http.post<any>(this.logoutUrl,null,options).pipe(
       catchError(this.handleError)
@@ -95,7 +119,12 @@ export class ApiServiceService {
   }
 
   getCurrUser(): Observable<any> {
-    let headers = this.getHeader();
+    //let headers = this.getHeader();
+    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authMsg 
+      });
     let options = { headers: headers };
     return this.http.get<any>(this.getUserUrl,options).pipe(
       catchError(this.handleError)
@@ -103,7 +132,12 @@ export class ApiServiceService {
   }
 
   addLikes(blogId: number): Observable<any> {
-    let headers = this.getHeader();
+    //let headers = this.getHeader();
+    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authMsg 
+      });
     let options = { headers: headers };
     const obj = {"blogId": blogId};
     return this.http.post<any>(this.likeUrl, obj,options).pipe(
@@ -112,7 +146,12 @@ export class ApiServiceService {
   }
 
   updateUser(newInfo: any): Observable<any> {
-    let headers = this.getHeader();
+    //let headers = this.getHeader();
+    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authMsg 
+      });
     let options = { headers: headers };
     newInfo.password = localStorage.getItem('password');
     return this.http.put<any>(this.updateUserUrl,newInfo,options).pipe(
@@ -122,17 +161,13 @@ export class ApiServiceService {
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      
       console.error('An error occurred:', error.error.message);
     } else {
-      
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
     }
-    
-    return throwError(
-      'Something bad happened; please try again later.');
+    return throwError('Something bad happened; please try again later.');
   }
   
   loggedInUser() {
@@ -140,6 +175,6 @@ export class ApiServiceService {
   }
   
   getUserDetail() {
-  return !!localStorage.getItem('currentUser');
+    return !!localStorage.getItem('currentUser');
   } 
 }

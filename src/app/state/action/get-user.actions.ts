@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { CurrentUser } from './CurrentUser';
+import { CurrentUser } from 'app/CurrentUser';
 
 export enum GetUserActionTypes {
   LoadGetUsers = '[GetUser] Load GetUsers',

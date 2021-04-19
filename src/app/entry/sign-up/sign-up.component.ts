@@ -1,9 +1,11 @@
 
-import { Component  } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { Title } from '@angular/platform-browser';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { User } from 'app/user';
 import { ApiServiceService } from 'app/api-service.service';
@@ -14,11 +16,12 @@ import { ApiServiceService } from 'app/api-service.service';
   styleUrls: ['./sign-up.component.scss'],
   
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnDestroy {
   title = 'Sign Up!';
   emailRegex =  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ;
   passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
   private readonly notifier: NotifierService ;
+  private ngUnsubscribe: Subject<any> = new Subject();
   
   get firstName() {
     return this.userSignUp.get('firstName')!;
@@ -51,15 +54,20 @@ export class SignUpComponent {
     password: ['', [Validators.required, Validators.pattern(this.passwordRegex), Validators.minLength(7)]]
   });
 
-  
   addCurrentUser() {
     const newUser: User = { ...this.userSignUp.value } ;
-    this.apiService.addUser(newUser).subscribe(data => {
+    this.apiService.addUser(newUser)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe(data => {
       console.log('POST Request is successful ', data);
       this.notifier.notify('success', 'User added successfully');
       this.router.navigateByUrl('/entry/login');
       }, () => this.notifier.notify('error', 'Provided user already exist'));
   }
 
+  ngOnDestroy(): void {
+     this.ngUnsubscribe.next();
+     this.ngUnsubscribe.complete();
+  }
 }
 

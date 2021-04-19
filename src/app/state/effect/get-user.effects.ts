@@ -4,8 +4,8 @@ import { Observable, of } from 'rxjs';
 import { Action } from '@ngrx/store';
 import { mergeMap,map,catchError,switchMap } from 'rxjs/operators';	
 
-import * as getUserActions from './get-user.actions';
-import { ApiServiceService } from './api-service.service';
+import * as getUserActions from 'app/state/action/get-user.actions';
+import { ApiServiceService } from 'app/api-service.service';
 
 
 

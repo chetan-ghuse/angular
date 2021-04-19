@@ -6,7 +6,7 @@
 
   <ng-template #content let-modal>
     <div class="modal-header">
-      <h2 class="modal-title mx-auto text-danger">Warring !</h2>
+      <h2 class="modal-title mx-auto text-danger">Warning !</h2>
     </div>
     <div class="modal-body ">
       <p><strong>Do you want to delete the blog ?</strong></p>
@@ -69,10 +69,10 @@
               </span>
             </button>
           </td>
-          <td class="b-date">{{ record.createdAt | date: 'MMM dd YYYY'}}</td>
           <td class="b-img"><img src="./assets/images/nature.jpeg">
             <button (click)="getBlogId(record.id, content)" class="del-btn" class="btn btn-danger mt-3 ml-5" data-toggle="modal" data-target="#exampleModalCenter" type="button">Delete</button>
           </td>
+          <td class="b-date">{{ record.createdAt | date: 'MMM dd YYYY'}}</td>
         </tr>
       
       </tbody>

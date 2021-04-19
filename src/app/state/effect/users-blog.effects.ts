@@ -4,9 +4,9 @@ import { Observable, of } from 'rxjs';
 import { Action } from '@ngrx/store';
 import { mergeMap,map,catchError,switchMap } from 'rxjs/operators';	
 
-import * as usersBlogActions from './users-blog.actions';
-import { LoadUsersBlogsLikes } from './users-blog.actions';
-import { ApiServiceService } from './api-service.service';
+import * as usersBlogActions from 'app/state/action/users-blog.actions';
+import { LoadUsersBlogsLikes } from 'app/state/action/users-blog.actions';
+import { ApiServiceService } from 'app/api-service.service';
 
 @Injectable() 
 export class UsersBlogEffects {

@@ -1,9 +1,11 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotifierService } from 'angular-notifier';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { AddBlogComponent } from '../add-blog/add-blog.component';
 import { ApiServiceService } from 'app/api-service.service';
@@ -14,14 +16,14 @@ import { ApiServiceService } from 'app/api-service.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   private readonly notifier: NotifierService ;
   currUserBlog: Array<any> = [];
   blogLikes: Array<any> = [];
   blogComments: Array<any> = [];
   blogId!: number;
   blogData!: any;
-
+  private ngUnsubscribe: Subject<any> = new Subject();
   constructor(private router: Router, 
               private apiService: ApiServiceService, 
               notifierService: NotifierService,
@@ -38,14 +40,18 @@ export class HomeComponent implements OnInit {
   }
 
   getUserBlog() {
-    this.apiService.getBlog().subscribe(bdata => {        
+    this.apiService.getBlog()
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe(bdata => {        
       this.currUserBlog = bdata['response'];
       localStorage.setItem('userBlog', JSON.stringify(this.currUserBlog));
     });
   }
 
   deleteBlog() {
-    this.apiService.removeBlog(this.blogId).subscribe(() => {
+    this.apiService.removeBlog(this.blogId)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe(() => {
       this.notifier.notify('success','Blog deleted'); 
       this.getUserBlog();
     }, () => this.notifier.notify('error','Sorry unable to delete'));
@@ -70,7 +76,9 @@ export class HomeComponent implements OnInit {
       if (result) {
         console.log(result);
         this.blogData = result; 
-        this.apiService.createBlog(result).subscribe(() => {
+        this.apiService.createBlog(result)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(() => {
         this.notifier.notify('success','Blog added successfully');
         this.getUserBlog();
       }, () => this.notifier.notify('error','Sorry blog is not added')); 
@@ -79,7 +87,9 @@ export class HomeComponent implements OnInit {
   }
 
   increaseLikes(blogId: number) {
-    this.apiService.addLikes(blogId).subscribe((data) => {
+    this.apiService.addLikes(blogId)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe((data) => {
       if(data.msg == 'Like entry added') {
       this.notifier.notify('success','Like added successfully');
       } else if(data.msg == 'Like Deleted'){
@@ -87,6 +97,11 @@ export class HomeComponent implements OnInit {
       }
       this.getUserBlog();
     },() => this.notifier.notify('error','Like is not added'));
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
 }

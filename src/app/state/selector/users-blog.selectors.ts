@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import{ State } from './users-blog.reducer';
+import{ State } from 'app/state/reducer/users-blog.reducer';
 
 const getAllUsersBlogFeatureState = createFeatureSelector<State>('usersBlogState');
 

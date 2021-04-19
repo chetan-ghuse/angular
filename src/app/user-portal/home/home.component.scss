@@ -84,12 +84,15 @@ tr:hover {
   /*background-color: #0492ca;*/
   border-radius:2px ;
   /*padding: 5px;*/
+  display: block;
 }
 .b-date {
   display: block;
-  text-align: left; 
+  text-align: center; 
+  font-size: 10px;
+  padding: 0px;
+  width: 40px;
   color: #797777;
-  margin-top: 20px;;
 }
 
 #like {
@@ -99,10 +102,45 @@ tr:hover {
   color: white ;
   /*background-color: #0492ca;*/
 }
+
 img {
   height: 170px;
   width: 170px;
 }
+
 .b-img button {
   display: block;
+}
+@media only screen and (max-width:600px) {
+  
+  .blog-table {
+    width: 90%;
+    margin:auto;
+  }
+
+  td {
+    font-size: 12px !important;
+  }
+
+  .b-cmt button {
+   font-size: 12px !important;
+   padding: 2px; 
+  }
+
+  .b-img button {
+   font-size: 12px !important;
+   padding: 2px; 
+   margin-inline: 45% !important;
+  }
+
+  .b-img img {
+    width: 120px;
+   height: 120px;
+  }
+
+  .blog-table table {
+    background-color: white;
+    border-collapse: collapse !important ;
+  }
+
 }

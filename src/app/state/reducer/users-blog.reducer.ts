@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-import { AllUsersBlog } from './AllUsersBlog';
-import { UsersBlogActions, UsersBlogActionTypes } from './users-blog.actions'
+import { AllUsersBlog } from 'app/AllUsersBlog';
+import { UsersBlogActions, UsersBlogActionTypes } from 'app/state/action/users-blog.actions'
 
 export const usersBlogFeatureKey = 'usersBlogState';
 

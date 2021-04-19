@@ -4,7 +4,7 @@ import { CanActivate, Router } from '@angular/router';
 import{ Store, select } from '@ngrx/store';
 
 import { ApiServiceService } from './api-service.service';
-import * as getUserActions from './get-user.actions';
+import * as getUserActions from 'app/state/action/get-user.actions';
 //import * as fromGetUser from './get-user.selectors';
 import { CurrentUser } from './CurrentUser';
 
