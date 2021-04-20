@@ -20,7 +20,7 @@ h3 {
 }
 @media only screen and (max-width:600px) {
   :host {
-    width: 100%;
+    width: 90%;
   }
   .col-25 {
     text-align: left;
@@ -29,6 +29,9 @@ h3 {
   .col-75 {
     text-align: center;
     font-size: 10px;
+  }
+  .create-account {
+    font-size: 8px;
   }
   
 }

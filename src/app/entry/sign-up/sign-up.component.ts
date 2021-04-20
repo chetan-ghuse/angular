@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { User } from 'app/user';
 import { ApiServiceService } from 'app/api-service.service';
+import { forbiddenSpaceValidator } from 'app/shared/space.validator';
 
 @Component({
   selector: 'app-sign-up',
@@ -48,8 +49,20 @@ export class SignUpComponent implements OnDestroy {
                 this.titleService.setTitle('Sign Up');
               }
   userSignUp = this.fb.group({
-    firstName: ['', [Validators.required, Validators.minLength(2)]],
-    lastName: ['', [Validators.required, Validators.minLength(2)]],
+    firstName: ['', 
+      [
+        Validators.required, 
+        Validators.minLength(2), 
+        forbiddenSpaceValidator
+      ]
+    ],
+    lastName: ['', 
+      [
+        Validators.required, 
+        Validators.minLength(2), 
+        forbiddenSpaceValidator
+      ]
+    ],
     emailId: ['', [Validators.required, Validators.pattern(this.emailRegex)]],
     password: ['', [Validators.required, Validators.pattern(this.passwordRegex), Validators.minLength(7)]]
   });

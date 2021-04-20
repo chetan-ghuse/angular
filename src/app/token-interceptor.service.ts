@@ -30,7 +30,7 @@ export class TokenInterceptorService implements HttpInterceptor {
   	if (exclude.includes(req.url)) {
   		return next.handle(req);
   	}
-  	console.log(req.url);
+  	/*console.log(req.url);*/
   	return next.handle(req).pipe(
   		catchError(err => {
   			if(err.error.msg === 'error in authorization') {

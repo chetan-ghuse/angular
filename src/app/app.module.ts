@@ -21,6 +21,8 @@ import { TokenInterceptorService } from './token-interceptor.service';
 
 
 
+
+
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -66,7 +68,8 @@ const customNotifierOptions: NotifierOptions = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    /*SortUserPipe*/
     /*...routingComponents,
     NavBarComponent,*/
   ],

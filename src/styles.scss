@@ -3,7 +3,7 @@
 //@import '~/angular-notifier/src/styles.scss';
 
 body {
-  background-color: #f5f5e7 !important;
+  background-color: #f5f7f7 !important;
   min-width: 320px;
 }
 * {
@@ -71,36 +71,36 @@ label {
 }
 @media only screen and (max-width:600px) {
   .col-25, .col-75, button[type=submit], .flex-container {
-    width: 100%;
+    width: 90%;
     margin-top: 0;
+    padding-bottom: 2px;
+  }
+  table, thead, tbody, th, td, tr { 
+    display: block; 
+  }
+  thead tr { 
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
 
-}
-table, thead, tbody, th, td, tr { 
-  display: block; 
-}
-thead tr { 
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
-}
+  tr { border: 1px solid #ccc; }
 
-tr { border: 1px solid #ccc; }
+  tbody td {
+    border: none;
+    border-bottom: 1px solid #eee; 
+    position: relative;
+    padding-left: 50%; 
+  }
 
-tbody td {
-  border: none;
-  border-bottom: 1px solid #eee; 
-  position: relative;
-  padding-left: 50%; 
-}
-
-td:before { 
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  width: 45%; 
-  padding-right: 10px; 
-  white-space: nowrap;
-}
+  td:before { 
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%; 
+    padding-right: 10px; 
+    white-space: nowrap;
+  }
 /*
 //td:nth-of-type(1):before {content :"Task name:";}
 //td:nth-of-type(2):before {content :"Total Hour:";}

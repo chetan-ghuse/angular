@@ -8,9 +8,10 @@
       <div class="col-75">
         <input type="text" id="firstName" name=firstName formControlName="firstName"  
           placeholder="add first name..." [class.is-invalid]="firstName.invalid && firstName.touched">
-        <div *ngIf="firstName.errors && (firstName.invalid && firstName.touched)">
+        <div *ngIf="firstName.errors && (firstName.invalid && firstName.touched)">  
           <small  class="text-danger" *ngIf="firstName.errors?.required">First name  is required</small>
           <small  class="text-danger" *ngIf="firstName.errors?.minlength">First name  must have 2 characters</small>
+          <small  class="text-danger" *ngIf="firstName.errors?.forbiddenSpace">only spaces are invalid</small>
         </div>
       </div>
     </div>
@@ -24,6 +25,7 @@
         <div *ngIf="lastName.errors && (lastName.invalid && lastName.touched)">
           <small  class="text-danger" *ngIf="lastName.errors?.required">Last name  is required</small>
           <small  class="text-danger" *ngIf="lastName.errors?.minlength">Last name  must have 2 characters</small>
+          <small  class="text-danger" *ngIf="lastName.errors?.forbiddenSpace">only spaces are invalid</small>
         </div>
       </div>
     </div>
@@ -66,7 +68,7 @@
     </div>
     <div class="c-row">
       <div class="input">
-      <small>Already have an account ?<a routerLink="/entry/login">Log In</a></small>
+      <small class="have-account">Already have an account ?<a routerLink="/entry/login">Log In</a></small>
       </div>
     </div>
     <div class="c-row">

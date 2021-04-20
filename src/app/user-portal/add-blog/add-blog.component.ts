@@ -6,6 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { NotifierService } from 'angular-notifier';
 import { ApiServiceService } from 'app/api-service.service';
+import { forbiddenSpaceValidator } from 'app/shared/space.validator';
 
 @Component({
   selector: 'app-add-blog',
@@ -39,9 +40,27 @@ export class AddBlogComponent {
             }
 
   blogForm = this.fb.group({
-    title: ['', [Validators.required, Validators.minLength(2)]],
-    description: ['', [Validators.required, Validators.minLength(2)]],
-    content: ['',[Validators.required, Validators.minLength(2)]],
+    title: ['',
+     [
+        Validators.required, 
+        Validators.minLength(2), 
+        forbiddenSpaceValidator
+      ]
+    ],
+    description: ['',
+      [
+        Validators.required, 
+        Validators.minLength(2), 
+        forbiddenSpaceValidator
+      ]
+    ],
+    content: ['',
+      [
+        Validators.required, 
+        Validators.minLength(2),
+        forbiddenSpaceValidator
+       ]
+    ],
     visible: ['']
   });
 

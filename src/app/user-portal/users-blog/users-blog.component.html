@@ -4,7 +4,7 @@
   </div>
 
   <ng-template #tipContent >
-    <ul *ngFor="let like of blogLikes">
+    <ul *ngFor="let like of (blogLikes | sortUser)">
       <li *ngIf="blogLikes.length > 0">{{ like.user.firstName }}</li>
   </ul>
   <ul *ngIf="blogLikes.length == 0">

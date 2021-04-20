@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UsersBlogComponent } from './users-blog/users-blog.component';
+import { SortUserPipe } from './sort-user.pipe'; 
+import { SubmitFormDirective } from './submit-form.directive';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { UsersBlogComponent } from './users-blog/users-blog.component';
   	HomeComponent,
   	MyProfileComponent,
   	NavBarComponent,
-  	UsersBlogComponent
+  	UsersBlogComponent,
+    SortUserPipe,
+    SubmitFormDirective
   ],
   imports: [
     CommonModule,
