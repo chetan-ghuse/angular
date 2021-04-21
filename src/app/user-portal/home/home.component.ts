@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   open() {
     const modalRef = this.modalService.open(AddBlogComponent);
     modalRef.result.then((result) => {
-      if (result) {
+      if (result !== 'Close click') {
         console.log(result);
         this.blogData = result; 
         this.apiService.createBlog(result)
@@ -81,8 +81,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         .subscribe(() => {
         this.notifier.notify('success','Blog added successfully');
         this.getUserBlog();
-      }, () => this.notifier.notify('error','Sorry blog is not added')); 
-        }
+        }, () => this.notifier.notify('error','Sorry blog is not added')); 
+      }
     });
   }
 

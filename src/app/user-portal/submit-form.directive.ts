@@ -1,19 +1,17 @@
-import { Directive, Input, HostListener, ElementRef } from '@angular/core';
+import { Directive, HostListener } from '@angular/core';
+import { FormGroupDirective } from '@angular/forms';
 
 @Directive({
   selector: '[appSubmitForm]'
 })
 export class SubmitFormDirective {
-	/*@Input() appSubmitForm!: Function;*/
 
-  constructor(private el: ElementRef) { }
+  constructor(private formGroup: FormGroupDirective) { }
 
-  @HostListener('keydown.control.enter')
-  OnKeyUp() {
-
-  	console.log(this.el.nativeElement);
-  	
+  @HostListener('keydown',['$event'])
+  onKeyDown(event: KeyboardEvent) {
+  	if(event.ctrlKey && event.keyCode === 13) {
+  		this.formGroup.onSubmit(event);
+  	}
   }
-
-
 }
