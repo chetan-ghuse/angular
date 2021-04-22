@@ -9,6 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import { CdkTableModule } from '@angular/cdk/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -82,8 +83,8 @@ const customNotifierOptions: NotifierOptions = {
     NgbModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([UsersBlogEffects, GetUserEffects])
-    
+    EffectsModule.forRoot([UsersBlogEffects, GetUserEffects]),
+    CdkTableModule
   ],
   providers: [ 
     ApiServiceService, 

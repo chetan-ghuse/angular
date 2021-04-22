@@ -4,11 +4,13 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotifierService } from 'angular-notifier';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
 
 import { AddBlogComponent } from '../add-blog/add-blog.component';
 import { ApiServiceService } from 'app/api-service.service';
+import * as fromGetUser from 'app/state/selector/get-user.selectors';
 
 
 @Component({
@@ -24,11 +26,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   blogId!: number;
   blogData!: any;
   private ngUnsubscribe: Subject<any> = new Subject();
+  tableDataSource$: any;
+  displayedColumns!: string[];
+  public currUser!: string;
+
   constructor(private router: Router, 
               private apiService: ApiServiceService, 
               notifierService: NotifierService,
               private titleService: Title,
-              private modalService: NgbModal
+              private modalService: NgbModal,
+              private store: Store
               ) { 
                 this.notifier = notifierService;
                 this.titleService.setTitle('Home');
@@ -37,6 +44,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getUserBlog();
     this.currUserBlog = JSON.parse(localStorage.getItem('userBlog')!);
+    this.store.pipe(select(fromGetUser.getCurrentUser)).subscribe(
+      currUser => this.currUser = currUser.response.firstName
+    )
+    this.tableDataSource$ = new BehaviorSubject(this.currUserBlog);
+      this.displayedColumns = [
+      'user', 
+      'title', 
+      'description', 
+      'content',
+      'likeAndComment', 
+      'createdAt', 
+      'image',
+      'delete'
+    ];
   }
 
   getUserBlog() {

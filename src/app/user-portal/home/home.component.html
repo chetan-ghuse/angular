@@ -38,17 +38,17 @@
     Comment given by users: 
   </ng-template>
 
-  <div class="blog-table">
+<!--  <div class="blog-table">
     <table>
       <tbody id="tableBody">
         <tr *ngFor="let record of currUserBlog; let i=index">
-          <!--<td class="seqno">{{ i+1 }}</td> -->
+          <td class="seqno">{{ i+1 }}</td> 
          
           <td class="b-title">{{ record.title }}</td>
           <td class="b-descp">{{ record.description }}</td>
           <td class="b-content">{{ record.content }}</td>
           <td class="b-cmt" *ngIf="record.commentItems.length > 0">
-            <button type="button" class="btn btn-primary btn-sm p-3" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)" (click)=increaseLikes(record.id)>
+            <button type="button" class="btn btn-primary btn-sm" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)" (click)=increaseLikes(record.id)>
               <span id="like" class="far fa-thumbs-up">
                 {{ record.likeItems.length }}
               </span>
@@ -60,14 +60,14 @@
             </button>
           </td>
           <td class="b-cmt" *ngIf="record.commentItems.length == 0">
-            <button type="button" class="btn btn-primary btn-sm pl-3" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)" (click)="increaseLikes(record.id)">
+            <button type="button" class="btn btn-primary btn-sm" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)" (click)="increaseLikes(record.id)">
               <span id="like" class="far fa-thumbs-up">{{ record.likeItems.length }}</span>
             </button>
             <button type="button" class="btn btn-primary ml-3 btn-sm" [ngbPopover]="popContent" [popoverTitle]="popTitle" (click)="getComments(i)">
               <span class="cmt-s">
                 Comments {{ record.commentItems.length }}
               </span>
-            </button>
+            </button> 
           </td>
           <td class="b-img"><img src="./assets/images/nature.jpeg">
             <button (click)="getBlogId(record.id, content)" class="del-btn" class="btn btn-danger mt-3 ml-5" data-toggle="modal" data-target="#exampleModalCenter" type="button">Delete</button>
@@ -78,5 +78,65 @@
       </tbody>
   </table>
  
-</div>
+</div> -->
 
+<div class="blog-table">
+  <table cdk-table [dataSource]="tableDataSource$">
+    
+    <ng-container cdkColumnDef="user">
+      <th cdk-header-cell *cdkHeaderCellDef> FirstName</th>
+      <td cdk-cell *cdkCellDef="let row"> {{ currUser }} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="title">
+      <th cdk-header-cell *cdkHeaderCellDef> Title </th>
+      <td cdk-cell *cdkCellDef="let row"> {{ row.title }} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="description">
+      <th cdk-header-cell *cdkHeaderCellDef> Description </th>
+      <td cdk-cell *cdkCellDef="let row"> {{ row.description }} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="content">
+      <th cdk-header-cell *cdkHeaderCellDef> Content </th>
+      <td cdk-cell *cdkCellDef="let row"> {{ row.content }} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="likeAndComment">
+      <th cdk-header-cell *cdkHeaderCellDef> Likes </th>
+      <td cdk-cell *cdkCellDef="let row; let i=index">
+        <button type="button" class="btn btn-primary btn-sm pr-1 pl-1" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)" (click)=increaseLikes(row.id)>
+          <span id="like" class="far fa-thumbs-up">
+            {{ row.likeItems.length }}
+          </span>
+        </button>
+       <!-- <button type="button" class="btn btn-primary ml-3 btn-sm" [ngbPopover]="popContent" [popoverTitle]="popTitle" (click)="getComments(i)">
+          <span class="cmt-s">
+            Comments {{ row.commentItems.length }}
+          </span> 
+        </button>-->
+      </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="createdAt">
+      <th cdk-header-cell *cdkHeaderCellDef> CreatedAt </th>
+      <td cdk-cell *cdkCellDef="let row"> {{ row.createdAt | date: 'MMM dd YYYY' }} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="image">
+      <th cdk-header-cell *cdkHeaderCellDef> Image </th>
+      <td cdk-cell *cdkCellDef><img src="./assets/images/nature.jpeg"></td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="delete">
+      <th cdk-header-cell *cdkHeaderCellDef> </th>
+      <td cdk-cell *cdkCellDef="let row">
+        <button (click)="getBlogId(row.id, content)" class="del-btn" class="btn btn-danger mt-3 ml-5" data-toggle="modal" data-target="#exampleModalCenter" type="button">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CdkTableModule } from '@angular/cdk/table';
 
 import { UserPortalRoutingModule } from './user-portal-routing.module';
 import { UserPortalComponent } from './user-portal.component';
@@ -28,7 +29,8 @@ import { SubmitFormDirective } from './submit-form.directive';
     CommonModule,
     UserPortalRoutingModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    CdkTableModule
   ]
 })
 export class UserPortalModule { }

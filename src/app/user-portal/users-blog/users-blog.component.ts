@@ -1,8 +1,10 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { DataSource } from '@angular/cdk/collections';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
 
 import { ApiServiceService } from 'app/api-service.service';
 import { NotifierService } from 'angular-notifier';
@@ -20,6 +22,8 @@ export class UsersBlogComponent implements OnInit, OnDestroy {
 	allUsersBlog: Array<any> = [];
 	blogLikes: Array<any> = [];
 	blogComments: Array<any> = [];
+	tableDataSource$: any;
+	displayedColumns!: string[];
 	private readonly notifier: NotifierService ;
 	private ngUnsubscribe: Subject<any> = new Subject();
 
@@ -28,7 +32,7 @@ export class UsersBlogComponent implements OnInit, OnDestroy {
 							notifierService: NotifierService,
 							private store: Store
 							) {
-								this.titleService.setTitle('All blog');
+								this.titleService.setTitle('All blogs');
 								this.notifier = notifierService;
 							 }
 
@@ -40,8 +44,22 @@ export class UsersBlogComponent implements OnInit, OnDestroy {
 			takeUntil(this.ngUnsubscribe)
 		)
 		.subscribe(
-			usersBlog => this.allUsersBlog = usersBlog
-		 )
+			usersBlog => {
+				this.allUsersBlog = usersBlog;
+				this.tableDataSource$ = new BehaviorSubject(usersBlog);
+			}
+		)
+		//console.log(this.allUsersBlog);		
+		this.displayedColumns = [
+			'user', 
+			'title', 
+			'description', 
+			'content',
+			'likeAndComment', 
+			'createdAt', 
+			'image'
+		];
+
 	}
 
 	getLikes(index: number) {
