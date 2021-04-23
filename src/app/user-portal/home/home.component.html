@@ -84,28 +84,28 @@
   <table cdk-table [dataSource]="tableDataSource$">
     
     <ng-container cdkColumnDef="user">
-      <th cdk-header-cell *cdkHeaderCellDef> FirstName</th>
-      <td cdk-cell *cdkCellDef="let row"> {{ currUser }} </td>
+      <cdk-header-cell *cdkHeaderCellDef> FirstName</cdk-header-cell>
+      <cdk-cell *cdkCellDef="let row"> {{ currUser }} </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="title">
-      <th cdk-header-cell *cdkHeaderCellDef> Title </th>
-      <td cdk-cell *cdkCellDef="let row"> {{ row.title }} </td>
+      <cdk-header-cell *cdkHeaderCellDef> Title </cdk-header-cell>
+      <cdk-cell *cdkCellDef="let row"> {{ row.title }} </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="description">
-      <th cdk-header-cell *cdkHeaderCellDef> Description </th>
-      <td cdk-cell *cdkCellDef="let row"> {{ row.description }} </td>
+      <cdk-header-cell *cdkHeaderCellDef> Description </cdk-header-cell>      
+      <cdk-cell *cdkCellDef="let row"> {{ row.description }} </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="content">
-      <th cdk-header-cell *cdkHeaderCellDef> Content </th>
-      <td cdk-cell *cdkCellDef="let row"> {{ row.content }} </td>
+      <cdk-header-cell *cdkHeaderCellDef> Content </cdk-header-cell>      
+      <cdk-cell *cdkCellDef="let row"> {{ row.content }} </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="likeAndComment">
-      <th cdk-header-cell *cdkHeaderCellDef> Likes </th>
-      <td cdk-cell *cdkCellDef="let row; let i=index">
+      <cdk-header-cell *cdkHeaderCellDef> Likes </cdk-header-cell>      
+      <cdk-cell *cdkCellDef="let row; let i=index">
         <button type="button" class="btn btn-primary btn-sm pr-1 pl-1" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)" (click)=increaseLikes(row.id)>
           <span id="like" class="far fa-thumbs-up">
             {{ row.likeItems.length }}
@@ -116,27 +116,27 @@
             Comments {{ row.commentItems.length }}
           </span> 
         </button>-->
-      </td>
+      </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="createdAt">
-      <th cdk-header-cell *cdkHeaderCellDef> CreatedAt </th>
-      <td cdk-cell *cdkCellDef="let row"> {{ row.createdAt | date: 'MMM dd YYYY' }} </td>
+      <cdk-header-cell *cdkHeaderCellDef> CreatedAt </cdk-header-cell>
+      <cdk-cell *cdkCellDef="let row"> {{ row.createdAt | date: 'MMM dd YYYY' }} </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="image">
-      <th cdk-header-cell *cdkHeaderCellDef> Image </th>
-      <td cdk-cell *cdkCellDef><img src="./assets/images/nature.jpeg"></td>
+      <cdk-header-cell *cdkHeaderCellDef> Image </cdk-header-cell>
+      <cdk-cell *cdkCellDef><img src="./assets/images/nature.jpeg"></cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="delete">
-      <th cdk-header-cell *cdkHeaderCellDef> </th>
-      <td cdk-cell *cdkCellDef="let row">
+      <cdk-header-cell *cdkHeaderCellDef> </cdk-header-cell>
+      <cdk-cell *cdkCellDef="let row">
         <button (click)="getBlogId(row.id, content)" class="del-btn" class="btn btn-danger mt-3 ml-5" data-toggle="modal" data-target="#exampleModalCenter" type="button">Delete</button>
-      </td>
+      </cdk-cell>
     </ng-container>
 
-    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+    <cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
+    <cdk-row *cdkRowDef="let row; columns: displayedColumns;"></cdk-row>
   </table>
 </div>

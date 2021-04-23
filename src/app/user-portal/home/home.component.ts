@@ -66,6 +66,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     .subscribe(bdata => {        
       this.currUserBlog = bdata['response'];
       localStorage.setItem('userBlog', JSON.stringify(this.currUserBlog));
+      this.tableDataSource$.next(this.currUserBlog);
     });
   }
 
