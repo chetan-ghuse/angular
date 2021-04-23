@@ -53,9 +53,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       'title', 
       'description', 
       'content',
-      'likeAndComment', 
-      'createdAt', 
+      'likeAndComment',  
       'image',
+      'createdAt',
       'delete'
     ];
   }

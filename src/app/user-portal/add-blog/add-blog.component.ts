@@ -17,28 +17,6 @@ export class AddBlogComponent {
   titleBlog = 'Add Blog!';
   private readonly notifier: NotifierService ; 
 
-  get title() {
-    return this.blogForm.get('title')!;
-  }
-
-  get description() {
-    return this.blogForm.get('description')!;
-  }
-
-  get content() {
-    return this.blogForm.get('content')!;
-  }
-
-  constructor(private fb: FormBuilder,
-              private apiService: ApiServiceService,
-              notifierService: NotifierService,
-              private router: Router,
-              private titleService: Title,
-              public activeModal: NgbActiveModal) { 
-              this.notifier = notifierService;
-              this.titleService.setTitle('Add blog');
-            }
-
   blogForm = this.fb.group({
     title: ['',
      [
@@ -63,6 +41,30 @@ export class AddBlogComponent {
     ],
     visible: ['']
   });
+
+
+  get title() {
+    return this.blogForm.get('title')!;
+  }
+
+  get description() {
+    return this.blogForm.get('description')!;
+  }
+
+  get content() {
+    return this.blogForm.get('content')!;
+  }
+
+  constructor(public activeModal: NgbActiveModal,
+              private fb: FormBuilder,
+              private apiService: ApiServiceService,
+              notifierService: NotifierService,
+              private router: Router,
+              private titleService: Title
+              ) { 
+              this.notifier = notifierService;
+              this.titleService.setTitle('Add blog');
+            }
 
   addBlog() {
     this.activeModal.close(this.blogForm.value);

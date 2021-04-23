@@ -85,8 +85,9 @@
     
     <ng-container cdkColumnDef="user">
       <cdk-header-cell *cdkHeaderCellDef> FirstName</cdk-header-cell>
-      <cdk-cell *cdkCellDef="let row"> {{ currUser }} </cdk-cell>
+      <cdk-cell *cdkCellDef="let row"> {{ currUser }} <hr class="line-x"> </cdk-cell>
     </ng-container>
+    
 
     <ng-container cdkColumnDef="title">
       <cdk-header-cell *cdkHeaderCellDef> Title </cdk-header-cell>
@@ -132,7 +133,12 @@
     <ng-container cdkColumnDef="delete">
       <cdk-header-cell *cdkHeaderCellDef> </cdk-header-cell>
       <cdk-cell *cdkCellDef="let row">
-        <button (click)="getBlogId(row.id, content)" class="del-btn" class="btn btn-danger mt-3 ml-5" data-toggle="modal" data-target="#exampleModalCenter" type="button">Delete</button>
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button (click)="getBlogId(row.id, content)"  class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" type="button">Delete</button>
+              </div>
+            </div>
       </cdk-cell>
     </ng-container>
 
