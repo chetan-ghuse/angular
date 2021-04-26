@@ -5,7 +5,6 @@ import { DataSource } from '@angular/cdk/collections';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-
 import { ApiServiceService } from 'app/api-service.service';
 import { NotifierService } from 'angular-notifier';
 import * as UsersBlogActions from 'app/state/action/users-blog.actions';
@@ -48,29 +47,28 @@ export class UsersBlogComponent implements OnInit, OnDestroy {
         this.allUsersBlog = usersBlog;
         this.tableDataSource$ = new BehaviorSubject(usersBlog);
       }
-    )
-    //console.log(this.allUsersBlog);   
+    );
+    
     this.displayedColumns = [
-      'user', 
-      'title', 
-      'description', 
+      'user',
+      'title',
+      'description',
       'content',
-      'likeAndComment', 
-      'createdAt', 
+      'likeAndComment',
+      'createdAt',
       'image'
     ];
-
   }
 
-  getLikes(index: number) {
+  getLikes(index: number): void {
     this.blogLikes = this.allUsersBlog[index]['likeItems'];
   }
 
-  getComments(index: number) {
+  getComments(index: number): void {
     this.blogComments = this.allUsersBlog[index]['commentItems'];
   }
 
-  increaseLikes(blogId: number) {
+  increaseLikes(blogId: number): void {
     this.store.dispatch(new UsersBlogActions.LoadUsersBlogsLikes(blogId));
   }
 

@@ -15,26 +15,26 @@ import { forbiddenSpaceValidator } from 'app/shared/space.validator';
 })
 export class AddBlogComponent {
   titleBlog = 'Add Blog!';
-  private readonly notifier: NotifierService ; 
+  private readonly notifier: NotifierService;
 
   blogForm = this.fb.group({
     title: ['',
      [
-        Validators.required, 
-        Validators.minLength(2), 
+        Validators.required,
+        Validators.minLength(2),
         forbiddenSpaceValidator
       ]
     ],
     description: ['',
       [
-        Validators.required, 
-        Validators.minLength(2), 
+        Validators.required,
+        Validators.minLength(2),
         forbiddenSpaceValidator
       ]
     ],
     content: ['',
       [
-        Validators.required, 
+        Validators.required,
         Validators.minLength(2),
         forbiddenSpaceValidator
        ]
@@ -61,12 +61,12 @@ export class AddBlogComponent {
               notifierService: NotifierService,
               private router: Router,
               private titleService: Title
-              ) { 
+              ) {
               this.notifier = notifierService;
               this.titleService.setTitle('Add blog');
             }
 
-  addBlog() {
+  addBlog(): void {
     this.activeModal.close(this.blogForm.value);
   }
 

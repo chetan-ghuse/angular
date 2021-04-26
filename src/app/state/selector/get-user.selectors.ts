@@ -5,11 +5,11 @@ import { State } from 'app/state/reducer/get-user.reducer';
 const getCurrentUserFeatureState = createFeatureSelector<State>('getUser');
 
 export const getCurrentUser = createSelector(
-	getCurrentUserFeatureState,
-	state => state.currUser
-)
+  getCurrentUserFeatureState,
+  state => state.currUser
+);
 
 export const getError = createSelector(
-	getCurrentUserFeatureState,
-	state => state.error
-)
+  getCurrentUserFeatureState,
+  state => state.error
+);

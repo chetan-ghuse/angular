@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router'; 
+import { RouterModule, Routes } from '@angular/router';
 
 import { UserPortalComponent } from './user-portal.component';
 import { AddBlogComponent } from './add-blog/add-blog.component';
@@ -10,33 +10,33 @@ import { UsersBlogComponent } from './users-blog/users-blog.component';
 import { AuthGuard } from 'app/auth.guard';
 
 const routes: Routes = [
-	{
-		path: '',
-		component: UserPortalComponent,
-		canActivate: [ AuthGuard ], 
-		children: [
-			{
-				path: '',
-				redirectTo: '/home',
-				pathMatch: 'full'
-			}, {
-				path: 'addBlog',
-				component: AddBlogComponent
-			}, {
-				path: 'home',
-				component: HomeComponent
-			}, {
-				path: 'profile',
-				component: MyProfileComponent
-			}, {
-				path:'usersBlog', 
-    		component: UsersBlogComponent,
-			}, { 
-		    path: '**', 
-		    redirectTo:'/home', 
-		  }
-		]
-	}
+  {
+    path: '',
+    component: UserPortalComponent,
+    canActivate: [ AuthGuard ],
+    children: [
+      {
+        path: '',
+        redirectTo: '/home',
+        pathMatch: 'full'
+      }, {
+        path: 'addBlog',
+        component: AddBlogComponent
+      }, {
+        path: 'home',
+        component: HomeComponent
+      }, {
+        path: 'profile',
+        component: MyProfileComponent
+      }, {
+        path: 'usersBlog',
+        component: UsersBlogComponent,
+      }, {
+        path: '**',
+        redirectTo: '/home',
+      }
+    ]
+  }
 ];
 
 @NgModule({

@@ -10,7 +10,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ApiServiceService } from 'app/api-service.service';
 import * as getUserActions from 'app/state/action/get-user.actions';
 import * as fromGetUser from 'app/state/selector/get-user.selectors';
-import { CurrentUser } from  'app/CurrentUser';
+import { CurrentUser } from 'app/CurrentUser';
 
 @Component({
   selector: 'app-my-profile',
@@ -18,28 +18,27 @@ import { CurrentUser } from  'app/CurrentUser';
   styleUrls: ['./my-profile.component.scss']
 })
 export class MyProfileComponent implements OnInit, OnDestroy {
-
-	private readonly notifier: NotifierService;
-	currUser!: CurrentUser;
-	public show: boolean = true;
+  currUser!: CurrentUser;
+  public show = true;
   private ngUnsubscribe: Subject<any> = new Subject();
+  private readonly notifier: NotifierService;
 
   constructor(private fb: FormBuilder,
-  						private apiService: ApiServiceService,
-  						private titleService: Title,
-  						notifierService: NotifierService,
-  						private router: Router,
+              private apiService: ApiServiceService,
+              private titleService: Title,
+              notifierService: NotifierService,
+              private router: Router,
               private store: Store
-              ) { 
-  	this.titleService.setTitle('Profile');
-  	this.notifier = notifierService;
+              ) {
+    this.titleService.setTitle('Profile');
+    this.notifier = notifierService;
   }
 
   editForm = this.fb.group({
-  	firstName: [''],
-  	lastName: [''],
-  	emailId: ['']
-  })
+    firstName: [''],
+    lastName: [''],
+    emailId: ['']
+  });
 
   ngOnInit(): void {
     this.store.pipe(select(fromGetUser.getCurrentUser)).subscribe(
@@ -47,37 +46,36 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         console.log(currUser);
         this.currUser = currUser;
       }
-    )
+    );
     this.editForm.setValue({
       firstName: this.currUser.response.firstName,
       lastName: this.currUser.response.lastName,
       emailId: this.currUser.response.emailId
-    })
+    });
   }
 
-  backToHome() {
-  	this.router.navigateByUrl('/user-portal/home');
+  backToHome(): void {
+    this.router.navigateByUrl('/user-portal/home');
   }
 
-  toggle() {
-  	this.show = !this.show;
+  toggle(): void {
+    this.show = !this.show;
   }
-  
-  update() {
-  	this.apiService.updateUser(this.editForm.value)
+
+  update(): void {
+    this.apiService.updateUser(this.editForm.value)
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe((data) => {
-  		console.log(data);
-  		this.notifier.notify('success','Updation successfully');
+      console.log(data);
+      this.notifier.notify('success', 'Updation successfully');
       this.store.dispatch(new getUserActions.LoadGetUsers());
-
       this.toggle();
-  	},() => this.notifier.notify('error','Unable to update'));
+    }, () => this.notifier.notify('error', 'Unable to update'));
   }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
-  
+
 }

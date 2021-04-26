@@ -25,7 +25,7 @@ export class LoadUsersBlogsFailure implements Action {
 
 export class LoadUsersBlogsLikes implements Action {
   readonly type = UsersBlogActionTypes.LoadUsersBlogsLikes;
-	constructor(public payload: number ) { } 
+  constructor(public payload: number ) { }
 }
 
 export type UsersBlogActions = LoadUsersBlogs | LoadUsersBlogsSuccess | LoadUsersBlogsFailure | LoadUsersBlogsLikes;

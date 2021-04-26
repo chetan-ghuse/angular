@@ -8,10 +8,10 @@ export class SubmitFormDirective {
 
   constructor(private formGroup: FormGroupDirective) { }
 
-  @HostListener('keydown',['$event'])
-  onKeyDown(event: KeyboardEvent) {
-  	if(event.ctrlKey && event.keyCode === 13) {
-  		this.formGroup.onSubmit(event);
-  	}
+  @HostListener('keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.ctrlKey && event.keyCode === 13) {
+      this.formGroup.onSubmit(event);
+    }
   }
 }

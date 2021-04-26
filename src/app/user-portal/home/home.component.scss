@@ -47,21 +47,11 @@ table {
   border: 4px solid #f5f7f7;
   border-radius: 10px;
 }
-/*tr:nth-child(even) {
-  background-color: #d6dbdb;
-}*/
 cdk-row:hover {
   background-color: #d6dbdb;
   border-color: #be5ff5;
-  width: 105%;
-  /*overflow-x: visible;*/
-}/*
-.edit-btn {
-  background-color: aqua;
-  border-radius: 5px;
-  padding:5px 15px;
-  box-shadow: 1px 1px 5px #2323f0;
-}*/
+  transform: scaleX(1.1);
+}
 .cdk-column-user{
   font-weight: 700;
   text-decoration: underline;
@@ -76,7 +66,7 @@ cdk-row:hover {
   word-break: break-word;
 }
 .cdk-column-content {
-  color:#413f3f;
+  color: #413f3f;
   font-family: sans-serif;
   text-shadow: 2px 2px 6px gray;
   /*text-align: justify;*/
@@ -111,6 +101,13 @@ div.dropdown-menu.show {
 .line-x {
   display: none;
 }
+.row-2 {
+  display: none;
+}
+ul {
+    list-style-type: none;
+    padding: 10px; 
+  }
 @media only screen and (max-width:600px) {
   
   .blog-table {
@@ -140,8 +137,11 @@ div.dropdown-menu.show {
     display: none;
   }
   .cdk-row {
-    flex-direction: column;
+    /*flex-direction: column;*/
+    border: none;
+    border-radius: 0px;
     align-items: left;
+    padding-bottom: 0px;
   }
   .cdk-column-likeAndComment {
     font-size: 8px;
@@ -152,12 +152,42 @@ div.dropdown-menu.show {
     height: 3px;
     color: gray;
   }
-  .cdk-column-title {
-    width: 50%;
-    display: inline !important;
+  .cdk-column-delete {
+    text-align: right;  
   }
   .cdk-column-description, .cdk-column-content, .cdk-column-likeAndComment,
-  .cdk-column-image, .cdk-column-createdAt {
+  .cdk-column-image, .cdk-column-createdAt, .cdk-column-title {
     display: none;
+  }
+  .row-2{
+    display: flex;
+    background-color: white;
+    padding: 10px;
+    align-items: flex-start;
+    border-bottom: 4px solid #f5f7f7;
+    padding-top: 0px;
+  }
+  .cdk-column-titleRow2 {
+    padding-top: 0px;
+    width: 100%;
+  }
+  .cdk-column-blogInfo {
+    text-align: right;
+    /*padding-right: 25px;*/  
+  }
+  #title-line {
+    margin-bottom: 15px;
+    margin-top: 0px;
+    height: 4px;
+  }
+  .collapse-button {
+    position: absolute;
+    right: 60px;
+  }
+  .card-body {
+    padding: 10px;
+  }
+  cdk-row:hover {
+    transform: none;
   }
 }

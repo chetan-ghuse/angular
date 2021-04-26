@@ -6,10 +6,10 @@ import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 
 const exclude = [
-	'http://localhost:3000/',
-	'http://localhost:3000/addUser',
-	'http://localhost:3000/login'
-]
+  'http://localhost:3000/',
+  'http://localhost:3000/addUser',
+  'http://localhost:3000/login'
+];
 
 @Injectable({
   providedIn: 'root'
@@ -17,31 +17,31 @@ const exclude = [
 
 export class TokenInterceptorService implements HttpInterceptor {
 
-	private readonly notifier: NotifierService ;
+  private readonly notifier: NotifierService ;
 
- 	constructor(
-  	private router: Router,
-  	notifierService: NotifierService
-  ) { 
- 		this.notifier = notifierService;
+  constructor(
+    private router: Router,
+    notifierService: NotifierService
+  ) {
+    this.notifier = notifierService;
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-  	if (exclude.includes(req.url)) {
-  		return next.handle(req);
-  	}
-  	/*console.log(req.url);*/
-  	return next.handle(req).pipe(
-  		catchError(err => {
-  			if(err.error.msg === 'error in authorization') {
-  				this.logout();
-  			}
-  			return throwError(err);
-  		}),
-  	)
+    if (exclude.includes(req.url)) {
+      return next.handle(req);
+    }
+    /*console.log(req.url);*/
+    return next.handle(req).pipe(
+      catchError(err => {
+        if (err.error.msg === 'error in authorization') {
+          this.logout();
+        }
+        return throwError(err);
+      }),
+    );
   }
 
-  logout() {
-  	this.router.navigateByUrl('/entry/login');	
+  logout(): void {
+    this.router.navigateByUrl('/entry/login');
   }
 }
