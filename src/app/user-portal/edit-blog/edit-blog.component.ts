@@ -9,15 +9,16 @@ import { ApiServiceService } from 'app/api-service.service';
 import { forbiddenSpaceValidator } from 'app/shared/space.validator';
 
 @Component({
-  selector: 'app-add-blog',
-  templateUrl: './add-blog.component.html',
-  styleUrls: ['./add-blog.component.scss']
+  selector: 'app-edit-blog',
+  templateUrl: './edit-blog.component.html',
+  styleUrls: ['./edit-blog.component.scss']
 })
-export class AddBlogComponent {
-  titleBlog = 'Add Blog!';
+export class EditBlogComponent {
+
+  titleBlog = 'Edit Blog!';
   private readonly notifier: NotifierService;
 
-  blogForm = this.fb.group({
+  editForm = this.fb.group({
     title: ['',
      [
         Validators.required,
@@ -42,17 +43,16 @@ export class AddBlogComponent {
     visible: [false]
   });
 
-
   get title() {
-    return this.blogForm.get('title')!;
+    return this.editForm.get('title')!;
   }
 
   get description() {
-    return this.blogForm.get('description')!;
+    return this.editForm.get('description')!;
   }
 
   get content() {
-    return this.blogForm.get('content')!;
+    return this.editForm.get('content')!;
   }
 
   constructor(public activeModal: NgbActiveModal,
@@ -63,11 +63,9 @@ export class AddBlogComponent {
               private titleService: Title
               ) {
               this.notifier = notifierService;
-              this.titleService.setTitle('Add blog');
+              this.titleService.setTitle('Edit blog');
             }
-
-  addBlog(): void {
-    this.activeModal.close(this.blogForm.value);
+  editBlog(): void {
+    this.activeModal.close(this.editForm.value);
   }
-
 }

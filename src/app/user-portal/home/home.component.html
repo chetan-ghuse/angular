@@ -48,22 +48,42 @@
     </ng-container>
     
     <ng-container cdkColumnDef="title">
-      <cdk-header-cell *cdkHeaderCellDef> Title </cdk-header-cell>
+      <cdk-header-cell *cdkHeaderCellDef (click)="adjustSort('title')">
+      Title 
+      <span *ngIf="sortKey$.value === 'title'">
+         {{ sortDirection$.value === 'asc' ? '↥' : '↧' }}
+      </span>
+    </cdk-header-cell>
       <cdk-cell *cdkCellDef="let row"> {{ row.title }} </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="description">
-      <cdk-header-cell *cdkHeaderCellDef> Description </cdk-header-cell>      
+      <cdk-header-cell *cdkHeaderCellDef (click)="adjustSort('description')">
+      Description
+      <span *ngIf="sortKey$.value === 'description'">
+         {{ sortDirection$.value === 'asc' ? '↥' : '↧' }}
+      </span>
+    </cdk-header-cell>      
       <cdk-cell *cdkCellDef="let row"> {{ row.description }} </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="content">
-      <cdk-header-cell *cdkHeaderCellDef> Content </cdk-header-cell>      
+      <cdk-header-cell *cdkHeaderCellDef (click)="adjustSort('content')">
+      Content
+      <span *ngIf="sortKey$.value === 'content'">
+         {{ sortDirection$.value === 'asc' ? '↥' : '↧' }}
+      </span>
+    </cdk-header-cell>      
       <cdk-cell *cdkCellDef="let row"> {{ row.content }} </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="likeAndComment">
-      <cdk-header-cell *cdkHeaderCellDef> Likes </cdk-header-cell>      
+      <cdk-header-cell *cdkHeaderCellDef (click)="adjustSort('likeItems')"> 
+      Likes 
+      <span *ngIf="sortKey$.value === 'likeItems'">
+         {{ sortDirection$.value === 'asc' ? '↥' : '↧' }}
+      </span>
+    </cdk-header-cell>      
       <cdk-cell *cdkCellDef="let row; let i=dataIndex">
         <button type="button" class="btn btn-primary btn-sm pr-1 pl-1" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)" (click)=increaseLikes(row.id)>
           <span id="like" class="far fa-thumbs-up">
@@ -74,7 +94,12 @@
     </ng-container>
 
     <ng-container cdkColumnDef="createdAt">
-      <cdk-header-cell *cdkHeaderCellDef> CreatedAt </cdk-header-cell>
+      <cdk-header-cell *cdkHeaderCellDef (click)="adjustSort('createdAt')">
+      CreatedAt
+      <span *ngIf="sortKey$.value === 'createdAt'">
+         {{ sortDirection$.value === 'asc' ? '↥' : '↧' }}
+      </span>
+    </cdk-header-cell>
       <cdk-cell *cdkCellDef="let row"> {{ row.createdAt | date: 'MMM dd YYYY' }} </cdk-cell>
     </ng-container>
 
@@ -89,7 +114,8 @@
         <div ngbDropdown class="d-inline-block">
           <button class="btn" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button (click)="getBlogId(row.id, content)"  class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" type="button">Delete</button>
+            <button (click)="getBlogId(row.id, content)"  class="btn btn-danger m-1" data-toggle="modal" data-target="#exampleModalCenter" type="button">Delete</button><br>
+            <button (click)="openEditModal(row)" type="button" class="btn btn-primary m-1">edit blog</button>
           </div>
         </div>
       </cdk-cell>

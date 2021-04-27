@@ -63,8 +63,8 @@ module.exports = {
         "@angular-eslint/no-output-on-prefix": "error",
         "@angular-eslint/no-output-rename": "error",
         "@angular-eslint/no-outputs-metadata-property": "error",
-        "@angular-eslint/template/banana-in-box": "error",
-        "@angular-eslint/template/no-negated-async": "error",
+        "@angular-eslint/template/banana-in-box": "off",
+        "@angular-eslint/template/no-negated-async": "off",
         "@angular-eslint/use-lifecycle-interface": "error",
         "@angular-eslint/use-pipe-transform-interface": "error",
         "@typescript-eslint/adjacent-overload-signatures": "error",
@@ -98,7 +98,7 @@ module.exports = {
         "@typescript-eslint/dot-notation": "error",
         "@typescript-eslint/indent": [
             "error",
-            4,
+            2,
             {
                 "FunctionDeclaration": {
                     "parameters": "first"

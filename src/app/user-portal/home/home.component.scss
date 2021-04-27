@@ -46,11 +46,12 @@ table {
   justify-content: center;
   border: 4px solid #f5f7f7;
   border-radius: 10px;
+  margin-bottom: 5px;
 }
 cdk-row:hover {
   background-color: #d6dbdb;
   border-color: #be5ff5;
-  transform: scaleX(1.1);
+  /*transform: scaleX(1.1);*/
 }
 .cdk-column-user{
   font-weight: 700;
@@ -98,9 +99,6 @@ div.dropdown-menu.show {
 .dropdown-menu {
   width: 100%;
 }
-.line-x {
-  display: none;
-}
 .row-2 {
   display: none;
 }
@@ -142,6 +140,7 @@ ul {
     border-radius: 0px;
     align-items: left;
     padding-bottom: 0px;
+    margin-bottom: 0px;
   }
   .cdk-column-likeAndComment {
     font-size: 8px;
@@ -159,13 +158,14 @@ ul {
   .cdk-column-image, .cdk-column-createdAt, .cdk-column-title {
     display: none;
   }
-  .row-2{
+  .row-2 {
     display: flex;
     background-color: white;
     padding: 10px;
     align-items: flex-start;
     border-bottom: 4px solid #f5f7f7;
     padding-top: 0px;
+    margin-bottom: 5px;
   }
   .cdk-column-titleRow2 {
     padding-top: 0px;
@@ -190,4 +190,8 @@ ul {
   cdk-row:hover {
     transform: none;
   }
+  div.card {
+    margin-top: 15px;
+  }
+
 }

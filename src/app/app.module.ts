@@ -21,13 +21,10 @@ import { GetUserEffects } from 'app/state/effect/get-user.effects';
 import { TokenInterceptorService } from './token-interceptor.service';
 
 
-
-
-
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
-      position: 'middle',
+      position: 'right',
       distance: 12,
     },
     
@@ -39,7 +36,7 @@ const customNotifierOptions: NotifierOptions = {
   },
   theme: 'material',
   behaviour: {
-    autoHide: 2000,
+    autoHide: 1000,
     onClick: false,
     onMouseover: 'pauseAutoHide',
     showDismissButton: true,

@@ -25,31 +25,31 @@
   </ng-template>
 
 <div class="blog-table"> 
-  <table cdk-table [dataSource]="tableDataSource$">
+  <table cdk-table [dataSource]="tableDataSource$" multiTemplateDataRows>
     
     <ng-container cdkColumnDef="user">
-      <th cdk-header-cell *cdkHeaderCellDef> </th>
-      <td cdk-cell *cdkCellDef="let row"> {{ row.user.firstName }} </td>
+      <cdk-header-cell *cdkHeaderCellDef> User </cdk-header-cell>
+      <cdk-cell *cdkCellDef="let row"> {{ row.user.firstName }} </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="title">
-      <th cdk-header-cell *cdkHeaderCellDef> </th>
-      <td cdk-cell *cdkCellDef="let row"> {{ row.title }} </td>
+      <cdk-header-cell *cdkHeaderCellDef> Title </cdk-header-cell>
+      <cdk-cell *cdkCellDef="let row"> {{ row.title }} </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="description">
-      <th cdk-header-cell *cdkHeaderCellDef> </th>
-      <td cdk-cell *cdkCellDef="let row"> {{ row.description }} </td>
+      <cdk-header-cell *cdkHeaderCellDef> Description </cdk-header-cell>
+      <cdk-cell *cdkCellDef="let row"> {{ row.description }} </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="content">
-      <th cdk-header-cell *cdkHeaderCellDef> </th>
-      <td cdk-cell *cdkCellDef="let row"> {{ row.content }} </td>
+      <cdk-header-cell *cdkHeaderCellDef> Content </cdk-header-cell>
+      <cdk-cell *cdkCellDef="let row"> {{ row.content }} </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="likeAndComment">
-      <th cdk-header-cell *cdkHeaderCellDef></th>
-      <td cdk-cell *cdkCellDef="let row; let i=index">
+      <cdk-header-cell *cdkHeaderCellDef>Like and Comment</cdk-header-cell>
+      <cdk-cell *cdkCellDef="let row; let i=dataIndex">
         <button type="button" class="btn btn-primary btn-sm pr-1 pl-1" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)" (click)=increaseLikes(row.id)>
           <span id="like" class="far fa-thumbs-up">
             {{ row.likeItems.length }}
@@ -60,20 +60,50 @@
             Comments {{ row.commentItems.length }}
           </span> 
         </button>
-      </td>
+      </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="createdAt">
-      <th cdk-header-cell *cdkHeaderCellDef> </th>
-      <td cdk-cell *cdkCellDef="let row"> {{ row.createdAt | date: 'MMM dd YYYY' }} </td>
+      <cdk-header-cell *cdkHeaderCellDef> CreatedAt </cdk-header-cell>
+      <cdk-cell *cdkCellDef="let row"> {{ row.createdAt | date: 'MMM dd YYYY' }} </cdk-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="image">
-      <th cdk-header-cell *cdkHeaderCellDef> </th>
-      <td cdk-cell *cdkCellDef><img src="./assets/images/nature.jpeg"></td>
+      <cdk-header-cell *cdkHeaderCellDef> Image </cdk-header-cell>
+      <cdk-cell *cdkCellDef><img src="./assets/images/nature.jpeg"></cdk-cell>
     </ng-container>
 
-    <!--<tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>-->
-    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+    <ng-container cdkColumnDef="titleRow2">
+      <cdk-header-cell *cdkHeaderCellDef></cdk-header-cell>
+      <cdk-cell *cdkCellDef="let row; let i=dataIndex"> 
+        <hr id="title-line">{{ row.title }}
+        <button type="button" class="btn collapse-button" (click)="collapse.toggle()" [attr.aria-expanded]="!controlRow[i].isCollapsed" aria-controls="collapseExample">
+          <i class="fa fa-angle-down"></i> 
+        </button>
+        <div #collapse="ngbCollapse" [(ngbCollapse)]="controlRow[i].isCollapsed">
+          <div class="card">
+            <div class="card-body">
+              <ul>
+                <li><b>Description:</b> {{ row.description }} </li><hr>
+                <li><b>Content:</b> {{ row.content }} </li><hr>
+                <li>  
+                  <button type="button" class="btn btn-primary btn-sm pr-1 pl-1" placement="bottom" [ngbTooltip]="tipContent" (mouseover)="getLikes(i)" (click)=increaseLikes(row.id)>
+                    <span id="like" class="far fa-thumbs-up">
+                      {{ row.likeItems.length }}
+                    </span>
+                  </button><hr>
+                </li><hr>
+                <li><img src="./assets/images/nature.jpeg"></li><hr>
+                <li> {{ row.createdAt | date: 'MM dd YYYY' }} </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </cdk-cell>
+    </ng-container>
+
+    <cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
+    <cdk-row *cdkRowDef="let row; columns: displayedColumns;"></cdk-row>
+    <cdk-row class="row-2" *cdkRowDef="let row; columns: displayedColumnsRow2;"></cdk-row>
   </table>
 </div>

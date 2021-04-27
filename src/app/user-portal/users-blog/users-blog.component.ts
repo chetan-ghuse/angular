@@ -25,6 +25,8 @@ export class UsersBlogComponent implements OnInit, OnDestroy {
   displayedColumns!: string[];
   private readonly notifier: NotifierService ;
   private ngUnsubscribe: Subject<any> = new Subject();
+  displayedColumnsRow2!: string[];
+  public controlRow: Array<any> = [];
 
   constructor(private apiService: ApiServiceService,
               private titleService: Title,
@@ -46,6 +48,11 @@ export class UsersBlogComponent implements OnInit, OnDestroy {
       usersBlog => {
         this.allUsersBlog = usersBlog;
         this.tableDataSource$ = new BehaviorSubject(usersBlog);
+        usersBlog.forEach(row => {
+          this.controlRow.push({
+            isCollapsed: true
+          })
+        });
       }
     );
     
@@ -55,8 +62,11 @@ export class UsersBlogComponent implements OnInit, OnDestroy {
       'description',
       'content',
       'likeAndComment',
-      'createdAt',
-      'image'
+      'image',
+      'createdAt'
+    ];
+    this.displayedColumnsRow2 = [
+      'titleRow2',
     ];
   }
 

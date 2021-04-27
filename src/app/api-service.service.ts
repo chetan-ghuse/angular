@@ -23,6 +23,7 @@ export class ApiServiceService {
   getUserUrl: string = `${this.localhost}profileDetails`;
   likeUrl: string = `${this.localhost}addRemoveLike`;
   updateUserUrl: string = `${this.localhost}updateUser`;
+  updateBlogUrl: string = `${this.localhost}updateBlog`
   //authMsg: string = localStorage.getItem('authKey')!;
 
 
@@ -96,9 +97,9 @@ export class ApiServiceService {
     //let headers = this.getHeader();
     const authMsg = JSON.parse(localStorage.getItem('authKey')!);
     let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': authMsg 
-      });
+      'Content-Type': 'application/json',
+      'Authorization': authMsg 
+    });
     let options = { headers: headers };
     return this.http.post<any>(this.usersBlogUrl,null,options).pipe(
       catchError(this.handleError)
@@ -159,6 +160,18 @@ export class ApiServiceService {
     );
   }
 
+  updateBlog(details: any): Observable<any> {
+    const authMsg = JSON.parse(localStorage.getItem('authKey')!);
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authMsg 
+    });
+    let options = { headers: headers };
+    return this.http.post<any>(this.updateBlogUrl, details, options).pipe(
+      catchError(this.handleError)
+    );
+
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
