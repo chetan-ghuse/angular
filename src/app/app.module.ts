@@ -10,6 +10,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { CdkTableModule } from '@angular/cdk/table';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +20,8 @@ import { reducers, metaReducers } from './reducers';
 import { UsersBlogEffects } from 'app/state/effect/users-blog.effects';
 import { GetUserEffects } from 'app/state/effect/get-user.effects';
 import { TokenInterceptorService } from './token-interceptor.service';
+
+
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -81,7 +84,8 @@ const customNotifierOptions: NotifierOptions = {
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([UsersBlogEffects, GetUserEffects]),
-    CdkTableModule
+    CdkTableModule,
+    BrowserAnimationsModule
   ],
   providers: [ 
     ApiServiceService, 

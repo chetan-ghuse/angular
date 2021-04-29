@@ -32,7 +32,7 @@ module.exports = {
         "@angular-eslint/eslint-plugin",
         "@angular-eslint/eslint-plugin-template",
         "eslint-plugin-prefer-arrow",
-        "@typescript-eslint",
+        "@typescript-eslint/eslint-plugin",
         "@typescript-eslint/tslint"
     ],
     "rules": {

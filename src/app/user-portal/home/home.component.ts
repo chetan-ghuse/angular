@@ -1,17 +1,21 @@
 
-import { Component, OnInit, OnDestroy, OnChanges, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  OnChanges,
+  ChangeDetectorRef,
+  ViewChild,
+} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotifierService } from 'angular-notifier';
 import { Subject, BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Store, select } from '@ngrx/store';
 
 import { AddBlogComponent } from '../add-blog/add-blog.component';
-import { EditBlogComponent } from '../edit-blog/edit-blog.component';
 import { ApiServiceService } from 'app/api-service.service';
-import * as fromGetUser from 'app/state/selector/get-user.selectors';
 
 
 @Component({
@@ -20,16 +24,12 @@ import * as fromGetUser from 'app/state/selector/get-user.selectors';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy, OnChanges {
+
   private readonly notifier: NotifierService ;
   currUserBlog: Array<any> = [];
-  blogLikes: Array<any> = [];
-  blogComments: Array<any> = [];
   blogId!: number;
   blogData!: any;
   private ngUnsubscribe: Subject<any> = new Subject();
-  tableDataSource$: any;
-  displayedColumns!: string[];
-  displayedColumnsRow2!: string[];
   public currUser!: string;
   public controlRow: Array<any> = [];
   sortKey$ = new BehaviorSubject<string>('name');
@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
               notifierService: NotifierService,
               private titleService: Title,
               private modalService: NgbModal,
-              private store: Store,
               private cd: ChangeDetectorRef
               ) {
                 this.notifier = notifierService;
@@ -50,33 +49,11 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     this.getUserBlog();
     this.currUserBlog = JSON.parse(localStorage.getItem('userBlog')!);
-    this.store.pipe(select(fromGetUser.getCurrentUser)).subscribe(
-      currUser => this.currUser = currUser.response.firstName
-    );
-    this.currUserBlog.forEach(row => {
-      this.controlRow.push({
-        isCollapsed: true
-      })
-    });
-    this.tableDataSource$ = new BehaviorSubject(this.currUserBlog);
-    this.displayedColumns = [
-      'user',
-      'title',
-      'description',
-      'content',
-      'likeAndComment',
-      'image',
-      'createdAt',
-      'delete'
-    ];
-    this.displayedColumnsRow2 = [
-      'titleRow2',
-    ];
-    combineLatest(this.sortKey$, this.sortDirection$)
+    /*combineLatest(this.sortKey$, this.sortDirection$)
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(([sortKey, sortDirection]) => {
       const sortedBlog = this.currUserBlog.sort((a, b) => {
-        /*console.log(sortKey);*/
+        console.log(sortKey);
         if (a[sortKey] > b[sortKey]) {
           return sortDirection === 'asc' ? 1 : -1;
          } 
@@ -86,10 +63,10 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
         return 0;
       });
       this.tableDataSource$.next(sortedBlog);
-    });
+    });*/
   }
 
-  adjustSort(key: string) {
+  /*adjustSort(key: string) {
     if (this.sortKey$.value === key) {
       if (this.sortDirection$.value === 'asc') {
         this.sortDirection$.next('desc');
@@ -101,7 +78,7 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
     this.sortKey$.next(key);
     this.sortDirection$.next('asc');
   }
-
+*/
   ngOnChanges(): void {
     console.log('OnChanges');
     this.cd.detectChanges();
@@ -113,7 +90,6 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
     .subscribe(bdata => {
       this.currUserBlog = bdata['response'];
       localStorage.setItem('userBlog', JSON.stringify(this.currUserBlog));
-      this.tableDataSource$.next(this.currUserBlog);
       this.currUserBlog.forEach(row => {
         this.controlRow.push({
           isCollapsed: true
@@ -122,26 +98,13 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
-  deleteBlog(): void {
-    this.apiService.removeBlog(this.blogId)
+  deleteBlog(id: number): void {
+    this.apiService.removeBlog(id)
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(() => {
       this.notifier.notify('success', 'Blog deleted');
       this.getUserBlog();
     }, () => this.notifier.notify('error', 'Sorry unable to delete'));
-  }
-
-  getBlogId(id: number, content: any): void {
-    this.blogId = id;
-    this.modalService.open(content, { centered: true });
-  }
-
-  getLikes(index: number): void {
-    this.blogLikes = this.currUserBlog[index]['likeItems'];
-  }
-
-  getComments(index: number): void {
-    this.blogComments = this.currUserBlog[index]['commentItems'];
   }
 
   open(): void {
@@ -161,8 +124,10 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   openEditModal(currBlog: any) {
-    const modalRef = this.modalService.open(EditBlogComponent);
-    modalRef.componentInstance.editForm.setValue({
+    const modalRef = this.modalService.open(AddBlogComponent);
+    modalRef.componentInstance.titleBlog = 'Edit Blog!';
+    modalRef.componentInstance.titleService.setTitle('Edit Blog');
+    modalRef.componentInstance.blogForm.setValue({
       title: currBlog.title,
       description: currBlog.description,
       content: currBlog.content,
@@ -195,6 +160,7 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
       this.getUserBlog();
     }, () => this.notifier.notify('error', 'Like is not added'));
   }
+
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();

@@ -55,7 +55,7 @@ export class UsersBlogComponent implements OnInit, OnDestroy {
         });
       }
     );
-    
+    /*console.log(this.allUsersBlog);*/
     this.displayedColumns = [
       'user',
       'title',
