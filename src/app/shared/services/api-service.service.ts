@@ -4,8 +4,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { User } from './user';
-import{ loginUser } from './loginUser';
+import { User } from 'app/shared/interfaces/user';
+import{ loginUser } from 'app/shared/interfaces/loginUser';
 
 
 @Injectable({

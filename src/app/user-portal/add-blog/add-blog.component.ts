@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { NotifierService } from 'angular-notifier';
-import { ApiServiceService } from 'app/api-service.service';
-import { forbiddenSpaceValidator } from 'app/shared/space.validator';
+import { forbiddenSpaceValidator } from 'app/shared/validators/space.validator';
 
 @Component({
   selector: 'app-add-blog',
@@ -15,7 +12,6 @@ import { forbiddenSpaceValidator } from 'app/shared/space.validator';
 })
 export class AddBlogComponent {
   titleBlog = 'Add Blog!';
-  private readonly notifier: NotifierService;
 
   blogForm = this.fb.group({
     title: ['',
@@ -55,16 +51,13 @@ export class AddBlogComponent {
     return this.blogForm.get('content')!;
   }
 
-  constructor(public activeModal: NgbActiveModal,
-              private fb: FormBuilder,
-              private apiService: ApiServiceService,
-              notifierService: NotifierService,
-              private router: Router,
-              private titleService: Title
-              ) {
-              this.notifier = notifierService;
-              this.titleService.setTitle('Add blog');
-            }
+  constructor(
+    public activeModal: NgbActiveModal,
+    private fb: FormBuilder,
+    private titleService: Title
+    ) {
+    this.titleService.setTitle('Add blog');
+  }
 
   addBlog(): void {
     this.activeModal.close(this.blogForm.value);

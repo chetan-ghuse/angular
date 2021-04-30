@@ -32,7 +32,7 @@ module.exports = {
         "@angular-eslint/eslint-plugin",
         "@angular-eslint/eslint-plugin-template",
         "eslint-plugin-prefer-arrow",
-        "@typescript-eslint/eslint-plugin",
+        "@typescript-eslint",
         "@typescript-eslint/tslint"
     ],
     "rules": {
@@ -68,6 +68,10 @@ module.exports = {
         "@angular-eslint/use-lifecycle-interface": "error",
         "@angular-eslint/use-pipe-transform-interface": "error",
         "@typescript-eslint/adjacent-overload-signatures": "error",
+        '@typescript-eslint/no-unsafe-assignment': 'warn',
+        '@typescript-eslint/no-unsafe-return': 'warn',
+        '@typescript-eslint/no-unsafe-member-access': 'warn',
+        '@typescript-eslint/no-unsafe-call': 'warn',
         "@typescript-eslint/array-type": "off",
         "@typescript-eslint/ban-types": [
             "error",

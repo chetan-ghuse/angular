@@ -7,9 +7,9 @@ import { Title } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { User } from 'app/user';
-import { ApiServiceService } from 'app/api-service.service';
-import { forbiddenSpaceValidator } from 'app/shared/space.validator';
+import { User } from 'app/shared/interfaces/user';
+import { ApiServiceService } from 'app/shared/services/api-service.service';
+import { forbiddenSpaceValidator } from 'app/shared/validators/space.validator';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,7 +21,6 @@ export class SignUpComponent implements OnDestroy {
   title = 'Sign Up!';
   emailRegex =  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ;
   passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-  private readonly notifier: NotifierService ;
   private ngUnsubscribe: Subject<any> = new Subject();
   
   get firstName() {
@@ -40,14 +39,15 @@ export class SignUpComponent implements OnDestroy {
     return this.userSignUp.get('password')!;
   }
 
-  constructor(private fb: FormBuilder, 
-              private router: Router, 
-              private apiService: ApiServiceService, 
-              notifierService: NotifierService,
-              private titleService: Title) { 
-                this.notifier = notifierService;
-                this.titleService.setTitle('Sign Up');
-              }
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router, 
+    private apiService: ApiServiceService, 
+    private notifierService: NotifierService,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle('Sign Up');
+  }
   userSignUp = this.fb.group({
     firstName: ['', 
       [
@@ -72,10 +72,9 @@ export class SignUpComponent implements OnDestroy {
     this.apiService.addUser(newUser)
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(data => {
-      console.log('POST Request is successful ', data);
-      this.notifier.notify('success', 'User added successfully');
+      this.notifierService.notify('success', 'User added successfully');
       this.router.navigateByUrl('/entry/login');
-      }, () => this.notifier.notify('error', 'Provided user already exist'));
+      }, () => this.notifierService.notify('error', 'Provided user already exist'));
   }
 
   ngOnDestroy(): void {

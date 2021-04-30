@@ -14,12 +14,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ApiServiceService } from './api-service.service';
-import { AuthGuard } from './auth.guard';
+import { ApiServiceService } from 'app/shared/services/api-service.service';
+import { AuthGuard } from 'app/shared/services/auth.guard';
 import { reducers, metaReducers } from './reducers';
 import { UsersBlogEffects } from 'app/state/effect/users-blog.effects';
 import { GetUserEffects } from 'app/state/effect/get-user.effects';
-import { TokenInterceptorService } from './token-interceptor.service';
+import { TokenInterceptorService } from 'app/shared/interceptors/token-interceptor.service';
 
 
 
@@ -70,9 +70,6 @@ const customNotifierOptions: NotifierOptions = {
 @NgModule({
   declarations: [
     AppComponent,
-    /*SortUserPipe*/
-    /*...routingComponents,
-    NavBarComponent,*/
   ],
   imports: [
     BrowserModule,

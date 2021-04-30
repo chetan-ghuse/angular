@@ -5,7 +5,6 @@ import{ Store, select } from '@ngrx/store';
 
 import { ApiServiceService } from './api-service.service';
 import * as getUserActions from 'app/state/action/get-user.actions';
-import { CurrentUser } from './CurrentUser';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +17,6 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     if(this.apiService.loggedInUser()) {
       this.store.dispatch(new getUserActions.LoadGetUsers());
-      //console.log(this.store.dispatch(new getUserActions.LoadGetUsers()));
       return true;
     } else {
       this.router.navigate(['/login']);

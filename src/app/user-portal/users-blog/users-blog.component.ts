@@ -2,14 +2,12 @@ import { Title } from '@angular/platform-browser';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { DataSource } from '@angular/cdk/collections';
-import { Subject, BehaviorSubject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { ApiServiceService } from 'app/api-service.service';
-import { NotifierService } from 'angular-notifier';
+import { ApiServiceService } from 'app/shared/services/api-service.service';
 import * as UsersBlogActions from 'app/state/action/users-blog.actions';
 import * as fromUsersBlog from 'app/state/selector/users-blog.selectors';
-import { AllUsersBlog } from 'app/AllUsersBlog';
 
 @Component({
   selector: 'app-users-blog',
@@ -21,21 +19,15 @@ export class UsersBlogComponent implements OnInit, OnDestroy {
   allUsersBlog: Array<any> = [];
   blogLikes: Array<any> = [];
   blogComments: Array<any> = [];
-  tableDataSource$: any;
-  displayedColumns!: string[];
-  private readonly notifier: NotifierService ;
   private ngUnsubscribe: Subject<any> = new Subject();
-  displayedColumnsRow2!: string[];
-  public controlRow: Array<any> = [];
 
-  constructor(private apiService: ApiServiceService,
-              private titleService: Title,
-              notifierService: NotifierService,
-              private store: Store
-              ) {
-                this.titleService.setTitle('All blogs');
-                this.notifier = notifierService;
-               }
+  constructor(
+    private apiService: ApiServiceService,
+    private titleService: Title,
+    private store: Store
+  ) {
+    this.titleService.setTitle('All blogs');
+   }
 
   ngOnInit(): void {
     this.store.dispatch(new UsersBlogActions.LoadUsersBlogs());
@@ -47,27 +39,8 @@ export class UsersBlogComponent implements OnInit, OnDestroy {
     .subscribe(
       usersBlog => {
         this.allUsersBlog = usersBlog;
-        this.tableDataSource$ = new BehaviorSubject(usersBlog);
-        usersBlog.forEach(row => {
-          this.controlRow.push({
-            isCollapsed: true
-          })
-        });
       }
     );
-    /*console.log(this.allUsersBlog);*/
-    this.displayedColumns = [
-      'user',
-      'title',
-      'description',
-      'content',
-      'likeAndComment',
-      'image',
-      'createdAt'
-    ];
-    this.displayedColumnsRow2 = [
-      'titleRow2',
-    ];
   }
 
   getLikes(index: number): void {
@@ -78,7 +51,7 @@ export class UsersBlogComponent implements OnInit, OnDestroy {
     this.blogComments = this.allUsersBlog[index]['commentItems'];
   }
 
-  increaseLikes(blogId: number): void {
+  updateLikes(blogId: number): void {
     this.store.dispatch(new UsersBlogActions.LoadUsersBlogsLikes(blogId));
   }
 

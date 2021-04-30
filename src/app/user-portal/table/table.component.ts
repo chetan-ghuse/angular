@@ -1,35 +1,26 @@
 import {
   Component,
-  OnInit,
   Input,
   Output,
   EventEmitter,
   ChangeDetectorRef,
-  OnChanges,
-  ViewChild,
-  AfterViewInit
+  OnChanges
 } from '@angular/core';
-import { Subject, BehaviorSubject, Observable, combineLatest } from 'rxjs';
-import { MatTableDataSource } from '@angular/material/table';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Store, select } from '@ngrx/store';
-import {Sort} from '@angular/material/sort';
+import { Sort } from '@angular/material/sort';
 
-import * as fromGetUser from 'app/state/selector/get-user.selectors';
-import { AddBlogComponent } from '../add-blog/add-blog.component';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit, OnChanges, AfterViewInit {
+export class TableComponent implements OnChanges {
   @Input() blogs: Array<any> =[];
-  @Output() passBlogIdForLike = new EventEmitter();
-  @Output() passBlogIdForDel = new EventEmitter();
-  @Output() passBlogRow = new EventEmitter();
-  public controlRow: Array<any> = [];
-  public currUser!: string;
+  @Output() updateLikeEmitter = new EventEmitter();
+  @Output() deleteEmitter = new EventEmitter();
+  @Output() editBlogEmitter = new EventEmitter();
   tableDataSource$: any;
   displayedColumns!: string[];
   displayedColumnsRow2!: string[];
@@ -37,32 +28,17 @@ export class TableComponent implements OnInit, OnChanges, AfterViewInit {
   blogLikes: Array<any> = [];
   blogComments: Array<any> = [];
 
-  @ViewChild(MatSort, { static: false }) sort!: MatSort;
-  currBlogs!: any;
-
   constructor(
     private modalService: NgbModal,
-    private store: Store,
     private cd: ChangeDetectorRef
   ) { }
 
-  ngOnInit(): void {
-    this.store.pipe(select(fromGetUser.getCurrentUser)).subscribe(
-      currUser => this.currUser = currUser.response.firstName
-    );
-    
-  }
-
   ngOnChanges(): void {
-    this.currBlogs = new MatTableDataSource(this.blogs);
-    console.log(this.currBlogs);
-    this.tableDataSource$ = new BehaviorSubject(this.currBlogs.data);
-    console.log(this.tableDataSource$);
-    this.blogs.forEach(row => {
-      this.controlRow.push({
-        isCollapsed: true
-      })
+    const userBlogs = JSON.parse(JSON.stringify(this.blogs));
+    userBlogs.forEach((row: any) => {
+      row['isCollapsed'] = true;
     });
+    this.tableDataSource$ = new BehaviorSubject(userBlogs);
     this.displayedColumns = [
       'user',
       'title',
@@ -78,12 +54,30 @@ export class TableComponent implements OnInit, OnChanges, AfterViewInit {
     ];
   }
 
-  ngAfterViewInit() {
-    this.tableDataSource$.sort = this.sort;
+  sortData(sort: Sort) {
+    const data = this.tableDataSource$._value.slice();
+    if (!sort.active || sort.direction === '') {
+      this.tableDataSource$._value = data;
+      return;
+    }
+
+    this.tableDataSource$._value = data.sort((a: any, b: any) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'user': return this.compare(a.user.firstName, b.user.firstName, isAsc);
+        case 'title': return this.compare(a.title, b.title, isAsc);
+        case 'description': return this.compare(a.description, b.description, isAsc);
+        case 'content': return this.compare(a.content, b.content, isAsc);
+        case 'likeAndComment': return this.compare(a.likeItems, b.likeItems, isAsc);
+        case 'createdAt': return this.compare(a.createdAt, b.createdAt, isAsc);
+        default: return 0;
+      }
+    });
+    this.tableDataSource$.next(this.tableDataSource$._value);
   }
 
-  sortData(event: any) {
-    console.log(event);
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
   getBlogId(id: number, content: any): void {
@@ -99,14 +93,14 @@ export class TableComponent implements OnInit, OnChanges, AfterViewInit {
     this.blogComments = this.blogs[index]['commentItems'];
   }
   openEditModal(currBlog: any) {
-     this.passBlogRow.emit(currBlog);
+     this.editBlogEmitter.emit(currBlog);
   }
 
   addRemoveLike(id: number): void {
-    this.passBlogIdForLike.emit(id);
+    this.updateLikeEmitter.emit(id);
   }
 
   delBlog(): void {
-    this.passBlogIdForDel.emit(this.blogId);
+    this.deleteEmitter.emit(this.blogId);
   }
 }

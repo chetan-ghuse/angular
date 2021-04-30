@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { CurrentUser } from 'app/CurrentUser';
+import { CurrentUser } from 'app/shared/interfaces/CurrentUser';
 import { GetUserActions, GetUserActionTypes } from 'app/state/action/get-user.actions';
 
 export const getUserFeatureKey = 'getUser';

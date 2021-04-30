@@ -35,11 +35,11 @@
   </ng-template>
 
 <div class="blog-table">
-  <table cdk-table [dataSource]="tableDataSource$" multiTemplateDataRows matSort (matSortChange)="sortData($event)" >
+  <table cdk-table [dataSource]="tableDataSource$" multiTemplateDataRows matSort (matSortChange)="sortData($event)">
     
     <ng-container cdkColumnDef="user">
       <cdk-header-cell  *cdkHeaderCellDef mat-sort-header> FirstName</cdk-header-cell>
-      <cdk-cell *cdkCellDef="let row"> {{ currUser }} </cdk-cell>
+      <cdk-cell *cdkCellDef="let row"> {{ row.user.firstName }} </cdk-cell>
     </ng-container>
     
     <ng-container cdkColumnDef="title">
@@ -95,10 +95,10 @@
       <cdk-header-cell *cdkHeaderCellDef></cdk-header-cell>
       <cdk-cell *cdkCellDef="let row; let i=dataIndex"> 
         <hr id="title-line">{{ row.title }}
-        <button type="button" class="btn collapse-button" (click)="collapse.toggle()" [attr.aria-expanded]="!controlRow[i].isCollapsed" aria-controls="collapseExample">
+        <button type="button" class="btn collapse-button" (click)="collapse.toggle()" [attr.aria-expanded]="!row.isCollapsed" aria-controls="collapseExample">
           <i class="fa fa-angle-down"></i> 
         </button>
-        <div #collapse="ngbCollapse" [(ngbCollapse)]="controlRow[i].isCollapsed">
+        <div #collapse="ngbCollapse" [(ngbCollapse)]="row.isCollapsed">
           <div class="card">
             <div class="card-body">
               <ul>

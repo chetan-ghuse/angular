@@ -13,8 +13,8 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UsersBlogComponent } from './users-blog/users-blog.component';
 import { TableComponent } from './table/table.component';
-import { SortUserPipe } from './sort-user.pipe';
-import { SubmitFormDirective } from './submit-form.directive';
+import { SortUserPipe } from 'app/shared/pipes/sort-user.pipe';
+import { SubmitFormDirective } from 'app/shared/directives/submit-form.directive';
 
 
 @NgModule({
@@ -35,6 +35,7 @@ import { SubmitFormDirective } from './submit-form.directive';
     ReactiveFormsModule,
     NgbModule,
     CdkTableModule,
+    MatSortModule
   ]
 })
 export class UserPortalModule { }

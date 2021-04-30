@@ -5,7 +5,7 @@ import { Action } from '@ngrx/store';
 import { mergeMap, map, catchError, switchMap } from 'rxjs/operators';
 
 import * as getUserActions from 'app/state/action/get-user.actions';
-import { ApiServiceService } from 'app/api-service.service';
+import { ApiServiceService } from 'app/shared/services/api-service.service';
 
 @Injectable()
 export class GetUserEffects {

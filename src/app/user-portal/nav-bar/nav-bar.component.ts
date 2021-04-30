@@ -1,15 +1,13 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { Subject } from 'rxjs';
 import { takeUntil} from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 
-import { ApiServiceService } from 'app/api-service.service';
+import { ApiServiceService } from 'app/shared/services/api-service.service';
 import * as fromGetUser from 'app/state/selector/get-user.selectors';
-import { CurrentUser } from 'app/CurrentUser';
 
 @Component({
   selector: 'app-nav-bar',
@@ -18,18 +16,15 @@ import { CurrentUser } from 'app/CurrentUser';
 })
 export class NavBarComponent implements OnInit, OnDestroy {
   active = 1;
-  private readonly notifier: NotifierService ;
-  private ngUnsubscribe: Subject<any> = new Subject();
   public currUser!: string;
-  public isMenuCollapsed = true;
-  constructor(private apiService: ApiServiceService,
-              private router: Router,
-              notifierService: NotifierService,
-              private titleService: Title,
-              private store: Store
-              ) {
-                  this.notifier = notifierService;
-               }
+  /*public isMenuCollapsed = true;*/
+  private ngUnsubscribe: Subject<any> = new Subject();
+  constructor(
+    private apiService: ApiServiceService,
+    private router: Router,
+    private notifierService: NotifierService,
+    private store: Store
+  ) { }
 
   ngOnInit(): void {
     this.store.pipe(select(fromGetUser.getCurrentUser)).subscribe(
@@ -41,17 +36,15 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this.apiService.loggedOut()
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(data => {
-      console.log('POST Request is successful', data);
-      this.notifier.notify('success', 'logout successfully');
+      this.notifierService.notify('success', 'logout successfully');
       localStorage.setItem('userBlog', '');
       localStorage.setItem('allUsers', '');
       this.router.navigateByUrl('/entry/login');
     }, () => {
-        // this.notifier.notify('error', 'unable to logout');
-        this.notifier.notify('success', 'logout successfully');
-        localStorage.setItem('userBlog', '');
-        localStorage.setItem('allUsers', '');
-        this.router.navigateByUrl('/entry/login');
+      this.notifierService.notify('success', 'logout successfully');
+      localStorage.setItem('userBlog', '');
+      localStorage.setItem('allUsers', '');
+      this.router.navigateByUrl('/entry/login');
     });
   }
 

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { AllUsersBlog } from 'app/AllUsersBlog';
+import { AllUsersBlog } from 'app/shared/interfaces/AllUsersBlog';
 
 export enum UsersBlogActionTypes {
   LoadUsersBlogs = '[UsersBlog] Load UsersBlogs',
