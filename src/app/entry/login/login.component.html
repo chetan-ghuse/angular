@@ -1,0 +1,51 @@
+
+  <h3><i>{{ title }}</i></h3>
+  <form [formGroup]="loginForm" class="form" (ngSubmit)="onLogin()">
+    <div class="c-row">
+      <div class="input col-25">
+        <label  for="emailId">email-Id:</label>
+      </div>
+      <div class="col-75">
+        <input type="emailId" id="emailId" name=emailId formControlName="emailId"  
+        placeholder="email..." [class.is-invalid]="emailId.invalid && emailId.touched">
+        <div *ngIf="emailId.errors && (emailId.invalid && emailId.touched)">
+          <small  class="text-danger" *ngIf="emailId.errors?.required">Email is required</small>
+          <small  class="text-danger" *ngIf="emailId.errors?.pattern">Invalid required</small>
+        </div>
+      </div>
+    </div>
+    <div class="c-row">
+      <div class="input col-25">
+        <label  for="password">Password:</label>
+      </div>
+      <div class="col-75">
+        <input type="password" id="password" name=password formControlName="password"  
+        placeholder="password..." [class.is-invalid]="password.invalid && password.touched">
+        <div *ngIf="password.errors && (password.invalid && password.touched)">
+          <small  class="text-danger" *ngIf="password.errors?.required">Password is required</small>
+          <small  class="text-danger" *ngIf="password.errors?.pattern">
+            <ul>
+              <li>Password must have:</li>
+              <li>atleast one Capital alphabet</li>
+              <li>atleast one  Small alphabet</li>
+              <li>atleast one digit</li>
+              <li>atleast one special symbol</li>
+            </ul>
+          </small>
+          <small  class="text-danger" *ngIf="password.errors?.minlength">Password must have length of 7</small>
+        </div>
+      </div>
+    </div>
+    <div class="c-row">
+      <div class="input">
+      <small class="create-account">Want to create account ?<a routerLink="/entry/sign-up">Sign Up</a></small>
+      </div>
+    </div>
+    <div class="c-row">
+      <div class="input">
+      <button id="signup" type="submit" [disabled]="loginForm.invalid">Log in</button>
+      </div>
+    </div>
+    
+  </form>
+  {{ loginForm.value | json}}

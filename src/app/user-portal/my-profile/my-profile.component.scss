@@ -1,0 +1,48 @@
+:host {
+  background-color: #ffffff;
+  width: 60%;
+  margin: 5% auto;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 1px 1px 5px #979797;
+  display: block;
+}
+.head {
+	text-align: center;
+}
+.body {
+	margin: 2%;
+	padding: 5%;
+}
+.body h6 {
+	margin: 2%;
+	padding: 2%; 
+  font-size: 16px;
+}
+.foot{
+	text-align: right;
+}
+
+@media only screen and (max-width: 600px) {
+
+  :host{
+    width: 90%;
+  }
+  .col-25 {
+    text-align: left;
+    font-size: 10px;
+  }
+  .col-75 {
+    text-align: center;
+    font-size: 10px;
+  }
+  h2,h3 {
+    font-size: 20px;
+  }
+  .body h6 {
+    font-size: 12px;  
+  }
+  button {
+    font-size: 10px;
+  }
+}

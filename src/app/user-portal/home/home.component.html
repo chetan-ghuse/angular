@@ -1,0 +1,8 @@
+
+  <div class="blog">
+    <h1>Your Blogs :</h1>
+    <button (click)="open()" type="button">Add Blogs</button>
+  </div>
+  <app-table [blogs]="currUserBlog" (updateLikeEmitter)="updateLikes($event)" (deleteEmitter)="deleteBlog($event)" (editBlogEmitter)="editBlog($event)"> 
+  </app-table>
+  

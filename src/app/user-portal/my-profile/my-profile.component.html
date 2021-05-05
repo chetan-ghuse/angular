@@ -1,0 +1,60 @@
+	<div *ngIf="show;then content else edit"></div>
+	<ng-template #content>
+		<div class="head">
+			<h2>{{ currUser.response.firstName}}'s Profile</h2>
+		</div>
+		<hr>
+		<div class="body">
+			<h6> First Name : {{ currUser.response.firstName }} </h6>
+			<h6> Last Name  : {{ currUser.response.lastName  }} </h6>
+			<h6> Email Id   : {{ currUser.response.emailId   }} </h6>
+		</div>
+		<hr>
+		<div class="foot">
+			<button class="btn btn-warning mr-3 pl-3 pr-3" (click)="toggle()">Edit</button>
+			<button class="btn btn-info mr-5" (click)="backToHome()">Home</button>
+		</div>
+</ng-template>
+<ng-template #edit>
+	<div class="head">
+		<h3>Edit Your Profile</h3>
+		<hr>
+	</div>
+	<div class="body">
+		<form [formGroup]="editForm">
+			<div class="c-row">
+	      <div class="input col-25">
+	        <label  for="firstName">First Name:</label>
+	      </div>
+	      <div class="col-75">
+	        <input type="text" id="firstName" name=firstName formControlName="firstName"  
+	          placeholder="update first name...">
+	       </div>
+	    </div>
+	    <div class="c-row">
+	      <div class="input col-25">
+	        <label  for="lastName">Last Name:</label>
+	      </div>
+	      <div class="col-75">
+	        <input type="text" id="lastName" name=lastName formControlName="lastName"  
+	          placeholder="update last name...">
+	       </div>
+	    </div>
+	    <div class="c-row">
+	      <div class="input col-25">
+	        <label  for="emailId">EmailId:</label>
+	      </div>
+	      <div class="col-75">
+	        <input type="text" id="emailId" name=emailId formControlName="emailId"  
+	          placeholder="update email id..." readonly>
+	       </div>
+	    </div>
+		</form>
+	</div>
+	<hr>
+	<div class="foot">
+		<button class="btn btn-warning mr-3 pl-3 pr-3" (click)="update()">Save</button>
+		<button class="btn btn-info mr-5" (click)="toggle()">Cancel</button>
+	</div>
+	{{ editForm.value | json }}
+</ng-template>

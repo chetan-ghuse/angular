@@ -1,0 +1,7 @@
+
+  <div class="heading">
+    <h2>All Users Blogs </h2>
+  </div>
+
+  <app-table [blogs]="allUsersBlog" (updateLikeEmitter)="updateLikes($event)"> 
+  </app-table>

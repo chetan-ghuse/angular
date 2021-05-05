@@ -1,13 +1,25 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule, routingComponents } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { NgModule } from '@angular/core';
+import { BrowserModule, Title } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { ApiServiceService } from './api-service.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { CdkTableModule } from '@angular/cdk/table';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { ApiServiceService } from 'app/shared/services/api-service.service';
+import { AuthGuard } from 'app/shared/services/auth.guard';
+import { reducers, metaReducers } from './reducers';
+import { UsersBlogEffects } from 'app/state/effect/users-blog.effects';
+import { GetUserEffects } from 'app/state/effect/get-user.effects';
+import { TokenInterceptorService } from 'app/shared/interceptors/token-interceptor.service';
 
 
 
@@ -15,7 +27,7 @@ import { ApiServiceService } from './api-service.service';
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
-      position: 'middle',
+      position: 'right',
       distance: 12,
     },
     
@@ -27,7 +39,7 @@ const customNotifierOptions: NotifierOptions = {
   },
   theme: 'material',
   behaviour: {
-    autoHide: 2000,
+    autoHide: 1000,
     onClick: false,
     onMouseover: 'pauseAutoHide',
     showDismissButton: true,
@@ -58,17 +70,30 @@ const customNotifierOptions: NotifierOptions = {
 @NgModule({
   declarations: [
     AppComponent,
-    ...routingComponents,
-    NavBarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NotifierModule.withConfig(customNotifierOptions)
+    NotifierModule.withConfig(customNotifierOptions),
+    NgbModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([UsersBlogEffects, GetUserEffects]),
+    CdkTableModule,
+    BrowserAnimationsModule
   ],
-  providers: [ApiServiceService],
+  providers: [ 
+    ApiServiceService, 
+    AuthGuard, 
+    Title,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    } 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
